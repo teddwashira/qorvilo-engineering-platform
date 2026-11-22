@@ -1,0 +1,1296 @@
+
+// =====================================
+// QORVILO AI — DASHBOARD ENGINE
+// Version 0.1.0
+// =====================================
+
+// 1. GET IMPORTANT HTML ELEMENTS
+
+const themeButton = document.getElementById("theme-toggle");
+const addTransactionButton = document.getElementById("add-transaction");
+
+const balanceElement = document.getElementById("total-balance");
+const incomeElement = document.getElementById("total-income");
+const expensesElement = document.getElementById("total-expenses");
+const savingsElement = document.getElementById("savings-rate");
+
+const transactionList = document.getElementById("transaction-list");
+
+// 2. LOAD SAVED TRANSACTIONS
+
+let transactions = JSON.parse(
+  localStorage.getItem("qorvilo-transactions") || "[]"
+);
+let selectedForecastAlgorithm = "SMA";
+
+// Rest of your QORVILO JavaScript follows...
+// 3. FORMAT MONEY IN KENYAN SHILLINGS
+
+function formatMoney(amount) {
+  return new Intl.NumberFormat("en-KE", {
+    style: "currency",
+    currency: "KES",
+    maximumFractionDigits: 0
+  }).format(amount);
+}
+
+// 4. SAVE TRANSACTIONS
+
+function saveTransactions() {
+  localStorage.setItem(
+    "qorvilo-transactions",
+    JSON.stringify(transactions)
+  );
+}
+
+// 5. CALCULATE FINANCIAL TOTALS
+
+function updateDashboard() {
+  const income = transactions
+    .filter(item => item.type === "income")
+    .reduce((total, item) => total + item.amount, 0);
+
+  const expenses = transactions
+    .filter(item => item.type === "expense")
+    .reduce((total, item) => total + item.amount, 0);
+
+  const balance = income - expenses;
+
+  const savingsRate = income > 0
+    ? ((balance / income) * 100)
+    : 0;
+
+  balanceElement.textContent = formatMoney(balance);
+  incomeElement.textContent = formatMoney(income);
+  expensesElement.textContent = formatMoney(expenses);
+  savingsElement.textContent = savingsRate.toFixed(1) + "%";
+
+  renderTransactions();
+  renderChart();
+  renderInsights();
+}
+
+/* =====================================
+   QORVILO AI CHAT ENGINE
+   Version 0.1.0
+===================================== */
+
+const assistantNav = document.getElementById("assistant-nav");
+const assistantView = document.getElementById("assistant");
+const chatForm = document.getElementById("chat-form");
+const chatInput = document.getElementById("chat-input");
+const chatMessages = document.getElementById("chat-messages");
+// QORVILO CONVERSATION MEMORY
+const chatHistory = [];
+
+// OPEN AI ASSISTANT
+if (assistantNav && assistantView) {
+  assistantNav.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    assistantView.classList.add("active");
+
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.classList.remove("active");
+    });
+
+    assistantNav.classList.add("active");
+
+    assistantView.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+}
+
+// DISPLAY CHAT MESSAGE
+function addChatMessage(message, sender) {
+  const messageContainer = document.createElement("div");
+  messageContainer.className =
+    sender === "user"
+      ? "chat-message user-message"
+      : "chat-message assistant-message";
+
+  const bubble = document.createElement("div");
+  bubble.className = "chat-bubble";
+
+  const name = document.createElement("strong");
+  name.textContent = sender === "user" ? "YOU" : "QORVILO AI";
+
+  const text = document.createElement("p");
+  text.textContent = message;
+
+  bubble.append(name, text);
+
+  if (sender === "assistant") {
+    const avatar = document.createElement("div");
+    avatar.className = "chat-avatar";
+    avatar.textContent = "Q";
+    messageContainer.appendChild(avatar);
+  }
+
+  messageContainer.appendChild(bubble);
+  chatMessages.appendChild(messageContainer);
+
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return messageContainer;
+}
+
+/* =====================================
+   QORVILO GEMINI CHAT CONNECTION
+===================================== */
+
+if (chatForm && chatInput && chatMessages) {
+  chatForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const question = chatInput.value.trim();
+
+    if (!question) return;
+
+    addChatMessage(question, "user");
+
+// Save the user's message in conversation memory
+chatHistory.push({
+  role: "user",
+  text: question
+});
+
+chatInput.value = "";
+
+    const loadingMessage = addChatMessage(
+      "Thinking... Please wait.",
+      "assistant"
+    );
+
+    const income = transactions
+      .filter(item => item.type === "income")
+      .reduce((total, item) => total + Number(item.amount || 0), 0);
+
+    const expenses = transactions
+      .filter(item => item.type === "expense")
+      .reduce((total, item) => total + Number(item.amount || 0), 0);
+
+    const financialData = {
+      currency: "KES",
+      totalIncome: income,
+      totalExpenses: expenses,
+      netBalance: income - expenses,
+      transactions: transactions.map(item => ({
+        description: item.description,
+        category: item.category,
+        type: item.type,
+        amount: Number(item.amount),
+        date: item.date
+      }))
+    };
+
+    const sendButton = chatForm.querySelector("button");
+    sendButton.disabled = true;
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+  message: question,
+  financialData,
+history: chatHistory.slice(-10, -1)
+})
+      });
+
+      const result = await response.json();
+
+      loadingMessage.remove();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "AI request failed.");
+      }
+
+      addChatMessage(result.reply, "assistant");
+      // Save QORVILO's response in conversation memory
+chatHistory.push({
+  role: "assistant",
+  text: result.reply
+});
+
+    } catch (error) {
+      loadingMessage.remove();
+
+      console.error("QORVILO chat error:", error);
+
+      addChatMessage(
+        "I'm having trouble connecting to Gemini right now. Please check your server and try again.",
+        "assistant"
+      );
+    } finally {
+      sendButton.disabled = false;
+      chatInput.focus();
+    }
+  });
+}
+
+console.log("QORVILO Gemini connection loaded.");
+
+// 6. DISPLAY TRANSACTIONS
+
+
+function renderTransactions() {
+  transactionList.innerHTML = "";
+
+  if (transactions.length === 0) {
+    transactionList.innerHTML = `
+      <div class="empty-state">
+        <span>◈</span>
+        <h4>No transactions yet</h4>
+        <p>Add your first transaction to get started.</p>
+      </div>
+    `;
+    return;
+  }
+
+  transactions.slice().reverse().forEach(transaction => {
+    const item = document.createElement("div");
+
+    item.style.display = "flex";
+    item.style.justifyContent = "space-between";
+    item.style.alignItems = "center";
+    item.style.gap = "12px";
+    item.style.padding = "15px 5px";
+    item.style.borderBottom = "1px solid var(--border)";
+
+    const details = document.createElement("div");
+
+    const description = document.createElement("strong");
+    description.textContent = transaction.description;
+    description.style.display = "block";
+
+    const category = document.createElement("small");
+    category.textContent =
+      `${transaction.category || "Other"} · ${transaction.date}`;
+    category.style.color = "var(--muted)";
+
+    details.append(description, category);
+
+    const rightSide = document.createElement("div");
+    rightSide.style.display = "flex";
+    rightSide.style.alignItems = "center";
+    rightSide.style.gap = "12px";
+
+    const amount = document.createElement("strong");
+    amount.textContent =
+      `${transaction.type === "income" ? "+" : "-"}${formatMoney(transaction.amount)}`;
+
+    amount.style.color =
+      transaction.type === "income"
+        ? "var(--green)"
+        : "var(--red)";
+
+    
+const editButton = document.createElement("button");
+editButton.textContent = "Edit";
+editButton.dataset.id = transaction.id;
+editButton.className = "edit-transaction";
+editButton.style.cssText =
+  "border:1px solid var(--border);background:var(--surface);color:var(--accent);padding:7px 10px;border-radius:8px;cursor:pointer;";
+
+const deleteButton = document.createElement("button");
+deleteButton.textContent = "Delete";
+deleteButton.dataset.id = transaction.id;
+deleteButton.className = "delete-transaction";
+deleteButton.style.cssText =
+  "border:1px solid var(--border);background:var(--surface);color:var(--red);padding:7px 10px;border-radius:8px;cursor:pointer;";
+rightSide.append(amount, editButton, deleteButton);
+    item.append(details, rightSide);
+    transactionList.appendChild(item);
+  });
+}
+
+// EDIT TRANSACTIONS
+
+transactionList.addEventListener("click", (event) => {
+  const button = event.target.closest(".edit-transaction");
+
+  if (!button) return;
+
+  const transactionId = button.dataset.id;
+
+  const transaction = transactions.find(
+    item => item.id === transactionId
+  );
+
+  if (!transaction) return;
+
+  // Fill the existing transaction form
+  document.getElementById("transaction-description").value =
+    transaction.description;
+
+  document.getElementById("transaction-amount").value =
+    transaction.amount;
+
+  document.getElementById("transaction-category").value =
+    transaction.category || "Other";
+
+  document.getElementById("transaction-date").value =
+    transaction.date;
+
+  transactionForm.querySelector(
+    `input[name="type"][value="${transaction.type}"]`
+  ).checked = true;
+
+  // Remember which transaction is being edited
+  transactionForm.dataset.editingId = transactionId;
+
+  // Open the modal
+  transactionModal.classList.add("active");
+});
+
+// DELETE TRANSACTIONS
+
+transactionList.addEventListener("click", (event) => {
+  const button = event.target.closest(".delete-transaction");
+
+  if (!button) return;
+
+  const transactionId = button.dataset.id;
+
+  const confirmed = confirm(
+    "Are you sure you want to delete this transaction?"
+  );
+
+  if (!confirmed) return;
+
+  transactions = transactions.filter(
+    transaction => transaction.id !== transactionId
+  );
+
+  saveTransactions();
+  updateDashboard();
+});
+
+// 7. ADD A TRANSACTION
+
+
+// 7. ADD TRANSACTION MODAL
+
+const transactionModal = document.getElementById("transaction-modal");
+const transactionForm = document.getElementById("transaction-form");
+const closeModalButton = document.getElementById("close-modal");
+const cancelTransactionButton = document.getElementById("cancel-transaction");
+const transactionDateInput = document.getElementById("transaction-date");
+
+// Open the modal
+function openTransactionModal() {
+  transactionModal.classList.add("active");
+  transactionDateInput.value = new Date().toISOString().split("T")[0];
+
+  document.getElementById("transaction-description").focus();
+}
+
+// Close the modal
+function closeTransactionModal() {
+  transactionModal.classList.remove("active");
+  transactionForm.reset();
+  delete transactionForm.dataset.editingId;
+}
+
+// Open when Add Transaction is clicked
+addTransactionButton.addEventListener("click", openTransactionModal);
+
+// Close buttons
+closeModalButton.addEventListener("click", closeTransactionModal);
+cancelTransactionButton.addEventListener("click", closeTransactionModal);
+
+// Close when clicking outside the modal
+transactionModal.addEventListener("click", (event) => {
+  if (event.target === transactionModal) {
+    closeTransactionModal();
+  }
+});
+
+// Close with Escape key
+document.addEventListener("keydown", (event) => {
+  if (
+    event.key === "Escape" &&
+    transactionModal.classList.contains("active")
+  ) {
+    closeTransactionModal();
+  }
+});
+
+// Save transaction
+transactionForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const description = document
+    .getElementById("transaction-description")
+    .value.trim();
+
+  const amount = Number(
+    document.getElementById("transaction-amount").value
+  );
+
+  const category = document.getElementById("transaction-category").value;
+
+  const date = transactionDateInput.value;
+
+  const type = transactionForm.querySelector(
+    'input[name="type"]:checked'
+  ).value;
+
+  if (!description || !Number.isFinite(amount) || amount <= 0 || !category || !date) {
+    alert("Please complete all fields with valid information.");
+    return;
+  }
+
+ 
+const editingId = transactionForm.dataset.editingId;
+
+if (editingId) {
+  transactions = transactions.map(transaction =>
+    transaction.id === editingId
+      ? { ...transaction, description, amount, category, type, date }
+      : transaction
+  );
+} else {
+  transactions.push({
+    id: crypto.randomUUID(),
+    description,
+    amount,
+    category,
+    type,
+    date
+  });
+}
+
+  saveTransactions();
+  updateDashboard();
+  closeTransactionModal();
+
+  alert("Transaction saved successfully!");
+});
+
+// =====================================
+// QORVILO FINANCIAL CHART ENGINE
+// =====================================
+
+
+function renderChart() {
+  const chartBars = document.getElementById("chart-bars");
+  const periodSelect = document.getElementById("period-select");
+
+  if (!chartBars) return;
+
+  const numberOfMonths = periodSelect
+    ? Number(periodSelect.value) || 6
+    : 6;
+
+  const today = new Date();
+  const monthlyData = [];
+
+  // Create accurate monthly totals
+  for (let i = numberOfMonths - 1; i >= 0; i--) {
+    const monthDate = new Date(
+      today.getFullYear(),
+      today.getMonth() - i,
+      1
+    );
+
+    const year = monthDate.getFullYear();
+    const month = String(monthDate.getMonth() + 1).padStart(2, "0");
+    const monthKey = `${year}-${month}`;
+
+    let income = 0;
+    let expenses = 0;
+
+    transactions.forEach(transaction => {
+      if (!transaction.date) return;
+
+      // Use only the transaction's calendar date
+      const transactionDate = transaction.date.slice(0, 7);
+
+      if (transactionDate !== monthKey) return;
+
+      const amount = Number(transaction.amount);
+
+      if (!Number.isFinite(amount) || amount <= 0) return;
+
+      if (transaction.type === "income") {
+        income += amount;
+      }
+
+      if (transaction.type === "expense") {
+        expenses += amount;
+      }
+    });
+
+    monthlyData.push({
+      label: monthDate.toLocaleDateString("en-KE", {
+        month: "short"
+      }),
+      income,
+      expenses
+    });
+  }
+
+  // Find the maximum value for chart scaling
+  const maximum = Math.max(
+    1,
+    ...monthlyData.map(item =>
+      Math.max(item.income, item.expenses)
+    )
+  );
+
+  // Remove previously generated bars
+  chartBars.innerHTML = "";
+
+  // Generate each month independently
+  monthlyData.forEach(item => {
+    const group = document.createElement("div");
+    group.className = "bar-group";
+
+    const incomeBar = document.createElement("div");
+    incomeBar.className = "bar income-bar";
+    incomeBar.style.height =
+      item.income > 0
+        ? `${(item.income / maximum) * 100}%`
+        : "0px";
+
+    const expenseBar = document.createElement("div");
+    expenseBar.className = "bar expense-bar";
+    expenseBar.style.height =
+      item.expenses > 0
+        ? `${(item.expenses / maximum) * 100}%`
+        : "0px";
+
+    const label = document.createElement("small");
+    label.textContent = item.label;
+
+    incomeBar.title = `Income: ${formatMoney(item.income)}`;
+    expenseBar.title = `Expenses: ${formatMoney(item.expenses)}`;
+
+    group.append(incomeBar, expenseBar, label);
+    chartBars.appendChild(group);
+  });
+
+  console.table(monthlyData);
+}
+
+
+
+// 8. DARK AND LIGHT MODE
+
+function applyTheme(theme) {
+  document.body.classList.toggle(
+    "light-theme",
+    theme === "light"
+  );
+
+  themeButton.textContent =
+    theme === "light" ? "☾" : "☼";
+
+  localStorage.setItem("qorvilo-theme", theme);
+}
+
+const savedTheme =
+  localStorage.getItem("qorvilo-theme") || "dark";
+
+applyTheme(savedTheme);
+
+themeButton.addEventListener("click", () => {
+  const nextTheme =
+    document.body.classList.contains("light-theme")
+      ? "dark"
+      : "light";
+
+  applyTheme(nextTheme);
+});
+
+// 9. INITIALISE DASHBOARD
+
+updateDashboard();
+
+console.log("QORVILO dashboard engine loaded successfully.");
+
+// =====================================
+// QORVILO FINANCIAL INTELLIGENCE ENGINE
+// Version 0.1.0
+// =====================================
+
+function renderInsights() {
+  const title = document.getElementById("insight-title");
+  const description = document.getElementById("insight-description");
+  const incomeDisplay = document.getElementById("insight-income");
+  const expensesDisplay = document.getElementById("insight-expenses");
+  const savingsDisplay = document.getElementById("insight-savings");
+  const recommendation = document.getElementById("insight-recommendation");
+  const tag = document.getElementById("insight-tag");
+
+  if (
+    !title ||
+    !description ||
+    !incomeDisplay ||
+    !expensesDisplay ||
+    !savingsDisplay ||
+    !recommendation ||
+    !tag
+  ) return;
+
+  // Calculate financial totals
+  const income = transactions
+    .filter(item => item.type === "income")
+    .reduce((total, item) => total + Number(item.amount || 0), 0);
+
+  const expenses = transactions
+    .filter(item => item.type === "expense")
+    .reduce((total, item) => total + Number(item.amount || 0), 0);
+
+  const savings = income - expenses;
+
+  // Update financial metrics
+  incomeDisplay.textContent = formatMoney(income);
+  expensesDisplay.textContent = formatMoney(expenses);
+  savingsDisplay.textContent = formatMoney(savings);
+
+  // Analyse transaction categories
+  const categoryTotals = {};
+
+  transactions
+    .filter(item => item.type === "expense")
+    .forEach(item => {
+      const category = item.category || "Other";
+      categoryTotals[category] =
+        (categoryTotals[category] || 0) + Number(item.amount || 0);
+    });
+
+  const highestCategory = Object.entries(categoryTotals)
+    .sort((a, b) => b[1] - a[1])[0];
+
+  // Generate financial insights
+  if (transactions.length === 0) {
+    tag.textContent = "AWAITING DATA";
+    title.textContent = "Your financial journey starts here";
+    description.textContent =
+      "Add your income and expenses so QORVILO can begin analysing your financial activity.";
+
+    recommendation.textContent =
+      "Your financial insights will appear here once you record your first transaction.";
+
+    return;
+  }
+
+  tag.textContent = "LIVE FINANCIAL ANALYSIS";
+
+  if (income === 0 && expenses > 0) {
+    title.textContent = "Income data is missing";
+    description.textContent =
+      `You've recorded ${formatMoney(expenses)} in expenses but no income yet.`;
+
+    recommendation.textContent =
+      "Record your income to help QORVILO calculate your savings rate and assess your financial position.";
+
+    return;
+  }
+
+  if (expenses > income) {
+    title.textContent = "Your expenses exceed your income";
+    description.textContent =
+      `You have spent ${formatMoney(expenses - income)} more than your recorded income.`;
+
+    recommendation.textContent =
+      "Review non-essential spending and check whether all income has been recorded.";
+
+    return;
+  }
+
+  if (income === 0 && expenses === 0) {
+    title.textContent = "More financial activity needed";
+    description.textContent =
+      "Your transactions currently have no recorded income or expenses.";
+
+    recommendation.textContent =
+      "Add accurate financial records to unlock more useful insights.";
+
+    return;
+  }
+
+  const savingsRate = (savings / income) * 100;
+
+  title.textContent = "Your financial overview";
+
+  description.textContent =
+    `You've retained ${savingsRate.toFixed(1)}% of your recorded income. ` +
+    `Your current net savings are ${formatMoney(savings)}.`;
+
+  if (savingsRate >= 30) {
+    recommendation.textContent =
+      "Strong savings performance. Consider maintaining this saving habit and setting a clear financial goal.";
+  } else if (savingsRate >= 10) {
+    recommendation.textContent =
+      "You're keeping some of your income. Look for opportunities to reduce unnecessary expenses and increase your savings rate.";
+  } else if (savingsRate > 0) {
+    recommendation.textContent =
+      "Your savings margin is relatively small. Review recurring expenses and identify areas where you could save more.";
+  } else {
+    recommendation.textContent =
+      "Your income and expenses are currently equal. Consider setting aside a small amount before discretionary spending.";
+  }
+
+  // Highlight the largest expense category
+  if (highestCategory) {
+    recommendation.textContent +=
+      ` Your largest recorded expense category is ${highestCategory[0]} (${formatMoney(highestCategory[1])}).`;
+  }
+}
+
+/* =====================================
+   QORVILO FINANCIAL FORECASTING ENGINE
+   Version 0.1.0
+===================================== */
+
+const forecastNav = document.getElementById("forecast-nav");
+const forecastView = document.getElementById("forecast");
+const refreshForecast = document.getElementById("refresh-forecast");
+
+function renderForecast() {
+  const incomeDisplay = document.getElementById("forecast-income");
+  const expensesDisplay = document.getElementById("forecast-expenses");
+  const savingsDisplay = document.getElementById("forecast-savings");
+  const description = document.getElementById("forecast-description");
+  const confidence = document.getElementById("forecast-confidence");
+
+  if (!incomeDisplay || !expensesDisplay ||
+      !savingsDisplay || !description || !confidence) return;
+
+  // Create the last three calendar-month buckets
+  const now = new Date();
+  const months = [];
+
+  for (let i = 2; i >= 0; i--) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+
+    months.push({
+      key,
+      income: 0,
+      expenses: 0,
+      hasTransactions: false
+    });
+  }
+
+  // Group recorded transactions by month
+  transactions.forEach(item => {
+    if (!item.date) return;
+
+    const monthKey = String(item.date).slice(0, 7);
+    const month = months.find(entry => entry.key === monthKey);
+    const amount = Number(item.amount);
+
+    if (!month || !Number.isFinite(amount) || amount <= 0) return;
+
+    month.hasTransactions = true;
+
+    if (item.type === "income") month.income += amount;
+    if (item.type === "expense") month.expenses += amount;
+  });
+
+  // Require activity in at least two different months
+  const activeMonths = months.filter(month => month.hasTransactions);
+
+  if (activeMonths.length < 2) {
+    incomeDisplay.textContent = "Insufficient data";
+    expensesDisplay.textContent = "Insufficient data";
+    savingsDisplay.textContent = "Insufficient data";
+
+    description.textContent =
+      "QORVILO needs transaction records from at least two different months before producing an initial forecast.";
+
+    confidence.textContent =
+      "Forecast confidence: Not available yet. Record transactions consistently across multiple months to build a useful financial history.";
+
+    return;
+  }
+
+  // Use the two most recent calendar months
+const olderMonth = months[1];
+const recentMonth = months[2];
+
+if (!olderMonth.hasTransactions || !recentMonth.hasTransactions) {
+  incomeDisplay.textContent = "Insufficient data";
+  expensesDisplay.textContent = "Insufficient data";
+  savingsDisplay.textContent = "Insufficient data";
+
+  description.textContent =
+    "QORVILO needs transaction activity in the two most recent calendar months.";
+
+  confidence.textContent =
+    "Forecast unavailable: more recent transaction history is required.";
+
+  return;
+}
+
+// Choose the forecasting weights
+const olderWeight =
+  selectedForecastAlgorithm === "WMA" ? 0.30 : 0.50;
+
+const recentWeight =
+  selectedForecastAlgorithm === "WMA" ? 0.70 : 0.50;
+
+// Predict income and expenses
+const predictedIncome =
+  olderMonth.income * olderWeight +
+  recentMonth.income * recentWeight;
+
+const predictedExpenses =
+  olderMonth.expenses * olderWeight +
+  recentMonth.expenses * recentWeight;
+
+const predictedSavings = predictedIncome - predictedExpenses;
+
+  incomeDisplay.textContent = formatMoney(predictedIncome);
+  expensesDisplay.textContent = formatMoney(predictedExpenses);
+  savingsDisplay.textContent = formatMoney(predictedSavings);
+
+  description.textContent =
+    `Based on the last three calendar months, QORVILO estimates next month's income at ${formatMoney(predictedIncome)}, expenses at ${formatMoney(predictedExpenses)}, and net savings at ${formatMoney(predictedSavings)}.`;
+
+  confidence.textContent =
+    "Preliminary estimate: This simple three-month average is not a validated prediction. Results may change significantly with limited or irregular transaction history.";
+}
+
+// Open Financial Forecast
+if (forecastNav && forecastView) {
+  forecastNav.addEventListener("click", event => {
+    event.preventDefault();
+
+    forecastView.classList.add("active");
+
+    if (assistantView) {
+      assistantView.classList.remove("active");
+    }
+
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.classList.remove("active");
+    });
+
+    forecastNav.classList.add("active");
+
+    renderForecast();
+
+    forecastView.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+}
+
+// Refresh forecast
+if (refreshForecast) {
+  refreshForecast.addEventListener("click", renderForecast);
+}
+
+// Initial forecast
+renderForecast();
+
+console.log("QORVILO Financial Forecasting loaded.");
+
+/* =====================================
+   QORVILO FORECAST ACCURACY ENGINE
+   Version 0.1.0
+===================================== */
+
+
+function renderForecastAccuracy() {
+  const predictedDisplay = document.getElementById("accuracy-predicted");
+  const actualDisplay = document.getElementById("accuracy-actual");
+  const errorDisplay = document.getElementById("accuracy-error");
+  const statusDisplay = document.getElementById("accuracy-status");
+  const historyBody = document.getElementById("accuracy-history-body");
+  const maeDisplay = document.getElementById("accuracy-mae");
+  const mapeDisplay = document.getElementById("accuracy-mape");
+
+  if (!predictedDisplay || !actualDisplay ||
+      !errorDisplay || !statusDisplay) return;
+
+  // Identify the months represented in the transaction history
+  const validTransactions = transactions.filter(item => {
+    return item.date &&
+      /^\d{4}-\d{2}/.test(String(item.date)) &&
+      Number.isFinite(Number(item.amount)) &&
+      Number(item.amount) > 0 &&
+      ["income", "expense"].includes(item.type);
+  });
+
+  if (validTransactions.length === 0) {
+    statusDisplay.textContent = "Add transactions to begin backtesting.";
+    return;
+  }
+
+  const monthKeys = validTransactions.map(item =>
+    String(item.date).slice(0, 7)
+  ).sort();
+
+  const firstMonth = monthKeys[0];
+  const lastMonth = monthKeys[monthKeys.length - 1];
+
+  const [startYear, startMonth] = firstMonth.split("-").map(Number);
+  const [endYear, endMonth] = lastMonth.split("-").map(Number);
+
+  // Build every calendar month in the recorded date range
+  const months = [];
+
+  let current = new Date(startYear, startMonth - 1, 1);
+  const end = new Date(endYear, endMonth - 1, 1);
+
+  while (current <= end) {
+    const key =
+      `${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, "0")}`;
+
+    months.push({
+      key,
+      income: 0,
+      expenses: 0,
+      hasTransactions: false
+    });
+
+    current.setMonth(current.getMonth() + 1);
+  }
+
+  // Group transactions into calendar months
+  validTransactions.forEach(item => {
+    const key = String(item.date).slice(0, 7);
+    const month = months.find(entry => entry.key === key);
+
+    if (!month) return;
+
+    const amount = Number(item.amount);
+    month.hasTransactions = true;
+
+    if (item.type === "income") month.income += amount;
+    if (item.type === "expense") month.expenses += amount;
+  });
+
+  // Backtest each month using the two months before it
+  const results = [];
+
+  for (let i = 2; i < months.length; i++) {
+    const firstPrevious = months[i - 2];
+    const secondPrevious = months[i - 1];
+    const actualMonth = months[i];
+
+    // Only test months with recorded activity in all three months
+    if (
+      !firstPrevious.hasTransactions ||
+      !secondPrevious.hasTransactions ||
+      !actualMonth.hasTransactions
+    ) {
+      continue;
+    }
+
+    const firstSavings =
+      firstPrevious.income - firstPrevious.expenses;
+
+    const secondSavings =
+      secondPrevious.income - secondPrevious.expenses;
+
+    const predictedSavings =
+      (firstSavings + secondSavings) / 2;
+
+    const actualSavings =
+      actualMonth.income - actualMonth.expenses;
+
+    const absoluteError =
+      Math.abs(predictedSavings - actualSavings);
+
+    const percentageError =
+      Math.abs(actualSavings) > 0.01
+        ? (absoluteError / Math.abs(actualSavings)) * 100
+        : null;
+
+    results.push({
+      month: actualMonth.key,
+      predicted: predictedSavings,
+      actual: actualSavings,
+      absoluteError,
+      percentageError
+    });
+  }
+
+  if (results.length === 0) {
+    predictedDisplay.textContent = "Insufficient data";
+    actualDisplay.textContent = "Insufficient data";
+    errorDisplay.textContent = "Not available";
+
+    if (historyBody) {
+      historyBody.innerHTML =
+        '<tr><td colspan="4">No eligible backtests yet.</td></tr>';
+    }
+
+    if (maeDisplay) maeDisplay.textContent = "Not available";
+    if (mapeDisplay) mapeDisplay.textContent = "Not available";
+
+    statusDisplay.textContent =
+      "QORVILO needs at least three consecutive calendar months with recorded transactions. It uses the previous two months to predict each test month.";
+
+    return;
+  }
+
+  // Calculate overall error metrics
+  const mae =
+    results.reduce((sum, result) =>
+      sum + result.absoluteError, 0) / results.length;
+
+  const validPercentageErrors =
+    results.filter(result => result.percentageError !== null);
+
+  const mape = validPercentageErrors.length > 0
+    ? validPercentageErrors.reduce((sum, result) =>
+        sum + result.percentageError, 0) / validPercentageErrors.length
+    : null;
+
+  // Display the latest backtest in the original summary
+  const latest = results[results.length - 1];
+
+  predictedDisplay.textContent = formatMoney(latest.predicted);
+  actualDisplay.textContent = formatMoney(latest.actual);
+
+  errorDisplay.textContent =
+    latest.percentageError !== null
+      ? latest.percentageError.toFixed(1) + "%"
+      : formatMoney(latest.absoluteError);
+
+  // Display MAE and MAPE
+  if (maeDisplay) {
+    maeDisplay.textContent = formatMoney(mae);
+  }
+
+  if (mapeDisplay) {
+    mapeDisplay.textContent =
+      mape !== null ? mape.toFixed(1) + "%" : "Not meaningful";
+  }
+
+  // Build the historical results table
+  if (historyBody) {
+    historyBody.innerHTML = results.map(result => `
+      <tr>
+        <td>${result.month}</td>
+        <td>${formatMoney(result.predicted)}</td>
+        <td>${formatMoney(result.actual)}</td>
+        <td>
+          ${result.percentageError !== null
+            ? result.percentageError.toFixed(1) + "%"
+            : formatMoney(result.absoluteError)}
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  statusDisplay.textContent =
+    `QORVILO completed ${results.length} historical backtest(s). ` +
+    `Mean Absolute Error: ${formatMoney(mae)}. ` +
+    `MAPE: ${mape !== null
+      ? mape.toFixed(1) + "%"
+      : "not meaningful because all tested actual savings were zero"}. ` +
+    "These results measure historical performance, not guaranteed future accuracy.";
+}
+
+
+// Run the accuracy test
+renderForecastAccuracy();
+
+console.log("QORVILO Forecast Accuracy Engine loaded.");
+
+/* =====================================
+   QORVILO ALGORITHM COMPARISON ENGINE
+   Version 0.3.0
+===================================== */
+
+
+function renderAlgorithmComparison() {
+  const smaMaeDisplay = document.getElementById("sma-mae");
+  const smaMapeDisplay = document.getElementById("sma-mape");
+  const wmaMaeDisplay = document.getElementById("wma-mae");
+  const wmaMapeDisplay = document.getElementById("wma-mape");
+  const winnerDisplay = document.getElementById("algorithm-winner");
+
+  if (
+    !smaMaeDisplay || !smaMapeDisplay ||
+    !wmaMaeDisplay || !wmaMapeDisplay ||
+    !winnerDisplay
+  ) return;
+
+  // Keep only valid transactions
+  const validTransactions = transactions.filter(item =>
+    item.date &&
+    /^\d{4}-\d{2}/.test(String(item.date)) &&
+    Number.isFinite(Number(item.amount)) &&
+    Number(item.amount) > 0 &&
+    ["income", "expense"].includes(item.type)
+  );
+
+  if (validTransactions.length === 0) {
+    winnerDisplay.textContent =
+      "Add transactions before comparing forecasting algorithms.";
+    return;
+  }
+
+  // Determine the transaction date range
+  const keys = validTransactions.map(item =>
+    String(item.date).slice(0, 7)
+  ).sort();
+
+  const [startYear, startMonth] = keys[0].split("-").map(Number);
+  const [endYear, endMonth] = keys[keys.length - 1].split("-").map(Number);
+
+  const months = [];
+  let date = new Date(startYear, startMonth - 1, 1);
+  const lastDate = new Date(endYear, endMonth - 1, 1);
+
+  while (date <= lastDate) {
+    const key =
+      `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+
+    months.push({
+      key,
+      income: 0,
+      expenses: 0,
+      hasTransactions: false
+    });
+
+    date.setMonth(date.getMonth() + 1);
+  }
+
+  // Calculate monthly income and expenses
+  validTransactions.forEach(item => {
+    const key = String(item.date).slice(0, 7);
+    const month = months.find(entry => entry.key === key);
+
+    if (!month) return;
+
+    const amount = Number(item.amount);
+    month.hasTransactions = true;
+
+    if (item.type === "income") month.income += amount;
+    if (item.type === "expense") month.expenses += amount;
+  });
+
+  const smaErrors = [];
+  const wmaErrors = [];
+
+  // Test both algorithms on identical months
+  for (let i = 2; i < months.length; i++) {
+    const older = months[i - 2];
+    const recent = months[i - 1];
+    const actualMonth = months[i];
+
+    if (
+      !older.hasTransactions ||
+      !recent.hasTransactions ||
+      !actualMonth.hasTransactions
+    ) continue;
+
+    const olderSavings = older.income - older.expenses;
+    const recentSavings = recent.income - recent.expenses;
+    const actualSavings = actualMonth.income - actualMonth.expenses;
+
+    // Algorithm 1: Simple Moving Average
+    const smaPrediction = (olderSavings + recentSavings) / 2;
+
+    // Algorithm 2: Weighted Moving Average
+    // Recent month receives 70% weight
+    const wmaPrediction =
+      (olderSavings * 0.30) + (recentSavings * 0.70);
+
+    const smaError = Math.abs(smaPrediction - actualSavings);
+    const wmaError = Math.abs(wmaPrediction - actualSavings);
+
+    smaErrors.push({
+      absolute: smaError,
+      percentage: Math.abs(actualSavings) > 0.01
+        ? (smaError / Math.abs(actualSavings)) * 100
+        : null
+    });
+
+    wmaErrors.push({
+      absolute: wmaError,
+      percentage: Math.abs(actualSavings) > 0.01
+        ? (wmaError / Math.abs(actualSavings)) * 100
+        : null
+    });
+  }
+
+  if (smaErrors.length === 0) {
+    smaMaeDisplay.textContent = "Insufficient data";
+    smaMapeDisplay.textContent = "Insufficient data";
+    wmaMaeDisplay.textContent = "Insufficient data";
+    wmaMapeDisplay.textContent = "Insufficient data";
+
+    winnerDisplay.textContent =
+      "At least three consecutive months with transaction activity are needed.";
+
+    return;
+  }
+
+  // Calculate MAE
+  const smaMae = smaErrors.reduce(
+    (sum, item) => sum + item.absolute, 0
+  ) / smaErrors.length;
+
+  const wmaMae = wmaErrors.reduce(
+    (sum, item) => sum + item.absolute, 0
+  ) / wmaErrors.length;
+
+  // Calculate MAPE, excluding zero actual values
+  const smaValidMape = smaErrors.filter(item => item.percentage !== null);
+  const wmaValidMape = wmaErrors.filter(item => item.percentage !== null);
+
+  const smaMape = smaValidMape.length
+    ? smaValidMape.reduce((sum, item) => sum + item.percentage, 0)
+      / smaValidMape.length
+    : null;
+
+  const wmaMape = wmaValidMape.length
+    ? wmaValidMape.reduce((sum, item) => sum + item.percentage, 0)
+      / wmaValidMape.length
+    : null;
+
+  // Display results
+  smaMaeDisplay.textContent = formatMoney(smaMae);
+  wmaMaeDisplay.textContent = formatMoney(wmaMae);
+
+  smaMapeDisplay.textContent =
+    smaMape === null ? "Not meaningful" : smaMape.toFixed(1) + "%";
+
+  wmaMapeDisplay.textContent =
+    wmaMape === null ? "Not meaningful" : wmaMape.toFixed(1) + "%";
+
+  // Select the winner using MAE
+  // Select the winner using MAE
+if (Math.abs(smaMae - wmaMae) < 0.01) {
+  selectedForecastAlgorithm = "SMA";
+
+  winnerDisplay.textContent =
+    `Both algorithms performed equally across ${smaErrors.length} backtests. SMA will be used as the default.`;
+
+} else if (smaMae < wmaMae) {
+  selectedForecastAlgorithm = "SMA";
+
+  winnerDisplay.textContent =
+    `Simple Moving Average (SMA) performed better across ${smaErrors.length} backtests.`;
+
+} else {
+  selectedForecastAlgorithm = "WMA";
+
+  winnerDisplay.textContent =
+    `Weighted Moving Average (WMA) performed better across ${smaErrors.length} backtests.`;
+}
+
+// Refresh the forecast using the selected algorithm
+renderForecast();
+}
+
+// Run algorithm comparison
+renderAlgorithmComparison();
+

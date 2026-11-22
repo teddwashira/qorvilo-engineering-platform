@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090f20">
+  <title>QORVILO AI | Financial Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar">
+      <a href="#" class="brand">
+        <span class="brand-icon">Q</span>
+        <span>QORVILO</span>
+      </a>
+
+      <p class="sidebar-label">WORKSPACE</p>
+
+      <nav class="navigation">
+        <a href="#" class="nav-link active"><span>◫</span> Dashboard</a>
+        <a href="#" class="nav-link"><span>↔</span> Transactions</a>
+        <a href="#" class="nav-link"><span>◷</span> Analytics</a>
+        <a href="#" class="nav-link"><span>◎</span> Budgets</a>
+        <a href="#assistant" class="nav-link" id="assistant-nav">
+  <span>✧</span> AI Assistant
+</a>
+<a href="#forecast" class="nav-link" id="forecast-nav">
+  <span>↗</span> Financial Forecast
+</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <p class="sidebar-label">PREFERENCES</p>
+        <nav class="navigation">
+          <a href="#" class="nav-link"><span>⚙</span> Settings</a>
+        </nav>
+
+        <div class="profile">
+          <div class="avatar">Q</div>
+          <div>
+            <strong>QORVILO User</strong>
+            <small>Personal Account</small>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <header class="topbar">
+        <div>
+          <p class="breadcrumb">Workspace / Overview</p>
+          <h1>Financial Overview</h1>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-button" id="theme-toggle" aria-label="Switch theme">☼</button>
+          <button class="profile-button">Q</button>
+        </div>
+      </header>
+
+      <section class="welcome-section">
+        <div>
+          <h2>Welcome to QORVILO.</h2>
+          <p>Your money. Your intelligence. Your control.</p>
+        </div>
+
+        <button class="primary-button" id="add-transaction">
+          + Add Transaction
+        </button>
+      </section>
+
+      <section class="stats-grid">
+
+        <article class="stat-card">
+          <div class="stat-heading">Total Balance <span>◈</span></div>
+          <h2 id="total-balance">KES 245,800</h2>
+          <p class="positive">Illustrative demo figure</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-heading">Total Income <span>↗</span></div>
+          <h2 id="total-income">KES 65,000</h2>
+          <p class="positive">Illustrative demo figure</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-heading">Total Expenses <span>↘</span></div>
+          <h2 id="total-expenses">KES 38,450</h2>
+          <p class="negative">Illustrative demo figure</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-heading">Savings Rate <span>◎</span></div>
+          <h2 id="savings-rate">40.8%</h2>
+          <p class="positive">Illustrative demo figure</p>
+        </article>
+
+      </section>
+
+      <section class="dashboard-grid">
+
+        <article class="panel chart-panel">
+          <div class="panel-header">
+            <div>
+              <h3>Financial Activity</h3>
+              <p>Income versus expenses</p>
+            </div>
+
+            <select id="period-select">
+              <option>Last 6 months</option>
+              <option>Last 12 months</option>
+            </select>
+          </div>
+
+          <div class="chart-legend">
+            <span><i class="income-dot"></i> Income</span>
+            <span><i class="expense-dot"></i> Expenses</span>
+          </div>
+
+          
+
+             
+<div class="chart">
+  <div class="chart-bars" id="chart-bars">
+
+    <div class="bar-group">
+      <div class="bar income-bar" style="height:80%"></div>
+      <div class="bar expense-bar" style="height:45%"></div>
+      <small>Jan</small>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar income-bar" style="height:65%"></div>
+      <div class="bar expense-bar" style="height:55%"></div>
+      <small>Feb</small>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar income-bar" style="height:90%"></div>
+      <div class="bar expense-bar" style="height:50%"></div>
+      <small>Mar</small>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar income-bar" style="height:70%"></div>
+      <div class="bar expense-bar" style="height:40%"></div>
+      <small>Apr</small>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar income-bar" style="height:95%"></div>
+      <div class="bar expense-bar" style="height:60%"></div>
+      <small>May</small>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar income-bar" style="height:85%"></div>
+      <div class="bar expense-bar" style="height:45%"></div>
+      <small>Jun</small>
+    </div>
+
+  </div>
+</div>
+</article>
+
+
+        <article class="panel insight-panel">
+          <div class="ai-heading">
+            <div class="ai-icon">✧</div>
+            <div>
+              <h3>QORVILO Intelligence</h3>
+              <p>Your financial AI assistant</p>
+            </div>
+          </div>
+
+          
+<div class="insight-content" id="insight-content">
+  <span class="insight-tag" id="insight-tag">QORVILO INTELLIGENCE</span>
+
+  <h4 id="insight-title">Your financial overview</h4>
+
+  <p id="insight-description">
+    QORVILO is analysing your financial activity.
+  </p>
+
+  <div class="insight-metrics" id="insight-metrics">
+    <div>
+      <small>Income</small>
+      <strong id="insight-income">KES 0</strong>
+    </div>
+
+    <div>
+      <small>Expenses</small>
+      <strong id="insight-expenses">KES 0</strong>
+    </div>
+
+    <div>
+      <small>Net savings</small>
+      <strong id="insight-savings">KES 0</strong>
+    </div>
+  </div>
+
+  <div class="insight-recommendation" id="insight-recommendation">
+    Add transactions to receive your first financial recommendation.
+  </div>
+</div>
+
+
+          <button class="secondary-button" data-page="assistant">
+            Explore AI Assistant →
+          </button>
+        </article>
+
+      </section>
+
+      <section class="panel transactions-panel">
+        <div class="panel-header">
+          <div>
+            <h3>Recent Transactions</h3>
+            <p>Your latest financial activity</p>
+          </div>
+
+          <button class="text-button">View all</button>
+        </div>
+
+        <div class="transaction-list" id="transaction-list">
+          <div class="empty-state">
+            <span>◈</span>
+            <h4>No transactions yet</h4>
+            <p>Add your first transaction to get started.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>© 2026 QORVILO AI</span>
+        <span>Intelligent Finance Platform · Demo</span>
+      </footer>
+
+<!-- ADD TRANSACTION MODAL -->
+
+<!-- =====================================
+     QORVILO AI CHAT ASSISTANT
+===================================== -->
+
+<section class="panel assistant-view" id="assistant">
+
+  <div class="panel-header">
+    <div>
+      <span class="insight-tag">QORVILO INTELLIGENCE</span>
+      <h2>AI Financial Assistant</h2>
+      <p>Your personal financial companion</p>
+    </div>
+
+    <span class="ai-icon">✧</span>
+  </div>
+
+  <div class="chat-messages" id="chat-messages">
+
+    <div class="chat-message assistant-message">
+      <div class="chat-avatar">Q</div>
+      <div class="chat-bubble">
+        <strong>QORVILO AI</strong>
+        <p>
+          Hello! I'm your QORVILO financial assistant.
+          Ask me about your income, expenses, savings
+          or financial goals.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <form class="chat-form" id="chat-form">
+
+    <input
+      type="text"
+      id="chat-input"
+      placeholder="Ask QORVILO anything about your finances..."
+      autocomplete="off"
+      required
+    >
+
+    <button type="submit" class="primary-button">
+      Send
+    </button>
+
+  </form>
+
+  <p class="chat-disclaimer">
+    QORVILO AI provides financial insights, not professional financial advice.
+  </p>
+
+</section>
+
+<!-- =====================================
+     QORVILO FINANCIAL FORECASTING
+===================================== -->
+
+<section class="panel forecast-view" id="forecast">
+
+  <div class="panel-header">
+    <div>
+      <span class="insight-tag">QORVILO INTELLIGENCE</span>
+      <h2>Financial Forecasting</h2>
+      <p>Understand where your finances could be heading</p>
+    </div>
+    <span class="ai-icon">↗</span>
+  </div>
+
+  <div class="stats-grid forecast-stats">
+
+    <div class="stat-card">
+      <div class="stat-heading">
+        <span>Predicted Income</span>
+      </div>
+      <h3 id="forecast-income">KES 0</h3>
+      <small>Next month</small>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-heading">
+        <span>Predicted Expenses</span>
+      </div>
+      <h3 id="forecast-expenses">KES 0</h3>
+      <small>Next month</small>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-heading">
+        <span>Predicted Savings</span>
+      </div>
+      <h3 id="forecast-savings">KES 0</h3>
+      <small>Next month</small>
+    </div>
+
+  </div>
+
+  <div class="insight-content forecast-analysis">
+    <h3>Forecast Analysis</h3>
+
+    <p id="forecast-description">
+      QORVILO is analysing your transaction history.
+    </p>
+
+ <div id="forecast-confidence" class="insight-recommendation">
+  Forecast confidence will appear here.
+</div>
+
+</div>   
+<
+
+<!-- FORECAST ACCURACY SECTION -->
+
+<div class="forecast-accuracy">
+  <h3>Forecast Accuracy Test</h3>
+
+  <p>
+    QORVILO compares historical predictions against
+    actual financial results.
+  </p>
+
+  <div class="accuracy-grid">
+    <div>
+      <small>Predicted Result</small>
+      <strong id="accuracy-predicted">Awaiting test</strong>
+    </div>
+
+    <div>
+      <small>Actual Result</small>
+      <strong id="accuracy-actual">Awaiting test</strong>
+    </div>
+
+    <div>
+      <small>Prediction Error</small>
+      <strong id="accuracy-error">Awaiting test</strong>
+    </div>
+  </div>
+
+  <div id="accuracy-status" class="insight-recommendation">
+    Accuracy analysis has not started.
+  </div>
+
+  <!-- HISTORICAL RESULTS -->
+
+  <div class="accuracy-history">
+    <h3>Historical Backtest Results</h3>
+
+    <p>Month-by-month comparison of predictions and actual results.</p>
+
+    <div class="accuracy-table-wrapper">
+      <table class="accuracy-table">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Predicted</th>
+            <th>Actual</th>
+            <th>Error</th>
+          </tr>
+        </thead>
+
+        <tbody id="accuracy-history-body">
+          <tr>
+            <td colspan="4">Waiting for backtest...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ACCURACY METRICS -->
+
+  <div class="accuracy-summary">
+    <div>
+      <small>Mean Absolute Error</small>
+      <strong id="accuracy-mae">Awaiting test</strong>
+    </div>
+
+    <div>
+      <small>Mean Absolute Percentage Error</small>
+      <strong id="accuracy-mape">Awaiting test</strong>
+    </div>
+  </div>
+
+  <!-- ALGORITHM COMPARISON -->
+
+  <div class="algorithm-comparison">
+    <h3>Forecasting Algorithm Comparison</h3>
+
+    <p>Compare forecasting methods using the same historical data.</p>
+
+    <div class="algorithm-grid">
+
+      <div class="algorithm-card">
+        <h4>Simple Moving Average (SMA)</h4>
+        <span class="insight-tag">SMA</span>
+
+        <div>
+          <small>Mean Absolute Error</small>
+          <strong id="sma-mae">Awaiting test</strong>
+        </div>
+
+        <div>
+          <small>Mean Absolute Percentage Error</small>
+          <strong id="sma-mape">Awaiting test</strong>
+        </div>
+      </div>
+
+      <div class="algorithm-card">
+        <h4>Weighted Moving Average (WMA)</h4>
+        <span class="insight-tag">WMA</span>
+
+        <div>
+          <small>Mean Absolute Error</small>
+          <strong id="wma-mae">Awaiting test</strong>
+        </div>
+
+        <div>
+          <small>Mean Absolute Percentage Error</small>
+          <strong id="wma-mape">Awaiting test</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="insight-recommendation" id="algorithm-winner">
+      The best-performing algorithm will appear here.
+    </div>
+  </div>
+
+</div>
+<button class="secondary-button" id="refresh-forecast">
+  Refresh Forecast
+</button>
+
+</section>
+
+<!-- ADD TRANSACTION MODAL -->
+<div class="modal-overlay" id="transaction-modal">
+  <div class="transaction-modal">
+
+    <div class="modal-header">
+      <div>
+        <h2>New Transaction</h2>
+        <p>Record your financial activity</p>
+      </div>
+
+      <button type="button" class="modal-close" id="close-modal">×</button>
+    </div>
+
+    <form id="transaction-form">
+
+      <label>Transaction type</label>
+
+      <div class="type-selector">
+        <label>
+          <input type="radio" name="type" value="income" checked>
+          <span>Income</span>
+        </label>
+
+        <label>
+          <input type="radio" name="type" value="expense">
+          <span>Expense</span>
+        </label>
+      </div>
+
+      <label for="transaction-description">Description</label>
+      <input
+        id="transaction-description"
+        type="text"
+        placeholder="e.g. Monthly salary"
+        required
+      >
+
+      <label for="transaction-amount">Amount (KES)</label>
+      <input
+        id="transaction-amount"
+        type="number"
+        min="0.01"
+        step="0.01"
+        placeholder="e.g. 5000"
+        required
+      >
+
+      <label for="transaction-category">Category</label>
+      <select id="transaction-category" required>
+        <option value="">Choose a category</option>
+        <option value="Salary">Salary</option>
+        <option value="Business">Business</option>
+        <option value="Food">Food</option>
+        <option value="Transport">Transport</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Bills">Bills</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="transaction-date">Date</label>
+      <input id="transaction-date" type="date" required>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-button" id="cancel-transaction">
+          Cancel
+        </button>
+
+        <button type="submit" class="primary-button">
+          Save Transaction
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+</main>
+</div>
+</body>
+</html>
