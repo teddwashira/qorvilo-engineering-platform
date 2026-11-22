@@ -22,6 +22,7 @@ let transactions = JSON.parse(
   localStorage.getItem("qorvilo-transactions") || "[]"
 );
 let selectedForecastAlgorithm = "SMA";
+let knownAnomalyIds = new Set();
 
 // Rest of your QORVILO JavaScript follows...
 // 3. FORMAT MONEY IN KENYAN SHILLINGS
@@ -41,6 +42,21 @@ function saveTransactions() {
     "qorvilo-transactions",
     JSON.stringify(transactions)
   );
+
+  const anomalies = analyzeFinancialAnomalies();
+
+  const newHighPriority = anomalies.filter(item =>
+    item.severity === "high" &&
+    !knownAnomalyIds.has(item.id)
+  );
+
+  newHighPriority.forEach(showAnomalyToast);
+
+  knownAnomalyIds = new Set(
+    anomalies.map(item => item.id)
+  );
+
+  renderAnomalies();
 }
 
 // 5. CALCULATE FINANCIAL TOTALS
@@ -753,6 +769,8 @@ function renderInsights() {
 const forecastNav = document.getElementById("forecast-nav");
 const forecastView = document.getElementById("forecast");
 const refreshForecast = document.getElementById("refresh-forecast");
+const anomalyNav = document.getElementById("anomaly-nav");
+const anomalyView = document.getElementById("anomalies");
 
 function renderForecast() {
   const incomeDisplay = document.getElementById("forecast-income");
@@ -878,6 +896,8 @@ if (forecastNav && forecastView) {
     forecastNav.classList.add("active");
 
     renderForecast();
+   renderForecastAccuracy();
+renderAlgorithmComparison(); 
 
     forecastView.scrollIntoView({
       behavior: "smooth",
@@ -995,14 +1015,17 @@ function renderForecastAccuracy() {
     const secondSavings =
       secondPrevious.income - secondPrevious.expenses;
 
-    const predictedSavings =
-      (firstSavings + secondSavings) / 2;
+    const smaPredicted =
+  (firstSavings + secondSavings) / 2;
+
+const wmaPredicted =
+  (firstSavings * 0.30) + (secondSavings * 0.70);
 
     const actualSavings =
       actualMonth.income - actualMonth.expenses;
 
     const absoluteError =
-      Math.abs(predictedSavings - actualSavings);
+  Math.abs(smaPredicted - actualSavings);
 
     const percentageError =
       Math.abs(actualSavings) > 0.01
@@ -1010,12 +1033,14 @@ function renderForecastAccuracy() {
         : null;
 
     results.push({
-      month: actualMonth.key,
-      predicted: predictedSavings,
-      actual: actualSavings,
-      absoluteError,
-      percentageError
-    });
+  month: actualMonth.key,
+  predicted: smaPredicted,
+  smaPredicted,
+  wmaPredicted,
+  actual: actualSavings,
+  absoluteError,
+  percentageError
+});
   }
 
   if (results.length === 0) {
@@ -1036,6 +1061,7 @@ function renderForecastAccuracy() {
 
     return;
   }
+  renderForecastAccuracyChart(results);
 
   // Calculate overall error metrics
   const mae =
@@ -1293,4 +1319,485 @@ renderForecast();
 
 // Run algorithm comparison
 renderAlgorithmComparison();
+
+function renderForecastAccuracyChart(results) {
+  const canvas = document.getElementById("forecast-accuracy-chart");
+
+  if (!canvas || !results || results.length === 0) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  if (!width || !height) return;
+
+  const pixelRatio = window.devicePixelRatio || 1;
+
+  canvas.width = width * pixelRatio;
+  canvas.height = height * pixelRatio;
+
+  ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  ctx.clearRect(0, 0, width, height);
+  canvas.style.cursor = "crosshair";
+
+const tooltip = document.getElementById("forecast-chart-tooltip");
+
+  const padding = { top: 20, right: 20, bottom: 45, left: 75 };
+  const chartWidth = width - padding.left - padding.right;
+  const chartHeight = height - padding.top - padding.bottom;
+
+  const values = results.flatMap(item => [
+    item.actual,
+    item.smaPredicted,
+    item.wmaPredicted
+  ]);
+
+  let minValue = Math.min(0, ...values);
+  let maxValue = Math.max(0, ...values);
+
+  if (minValue === maxValue) {
+    minValue -= 100;
+    maxValue += 100;
+  }
+
+  const range = maxValue - minValue;
+  minValue -= range * 0.10;
+  maxValue += range * 0.10;
+
+  const x = index =>
+    padding.left +
+    (results.length === 1
+      ? chartWidth / 2
+      : index * chartWidth / (results.length - 1));
+
+  const y = value =>
+    padding.top +
+    ((maxValue - value) / (maxValue - minValue)) * chartHeight;
+
+  const textColor =
+    getComputedStyle(document.body)
+      .getPropertyValue("--muted").trim() || "#999999";
+
+  const gridColor =
+    getComputedStyle(document.body)
+      .getPropertyValue("--border").trim() || "#444444";
+
+  ctx.font = "11px Arial";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "middle";
+
+  // Draw horizontal grid lines and value labels
+  for (let i = 0; i <= 4; i++) {
+    const value = minValue + (maxValue - minValue) * i / 4;
+    const position = y(value);
+
+    ctx.beginPath();
+    ctx.strokeStyle = gridColor;
+    ctx.lineWidth = 1;
+    ctx.moveTo(padding.left, position);
+    ctx.lineTo(width - padding.right, position);
+    ctx.stroke();
+
+    ctx.fillStyle = textColor;
+    ctx.fillText(
+" KES " + Math.round(value).toLocaleString("en-KE"),
+      padding.left - 10,
+      position
+    );
+  }
+
+  // Draw each data series
+  function drawLine(property, color) {
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+
+    results.forEach((item, index) => {
+      const pointX = x(index);
+      const pointY = y(item[property]);
+
+      if (index === 0) {
+        ctx.moveTo(pointX, pointY);
+      } else {
+        ctx.lineTo(pointX, pointY);
+      }
+    });
+
+    ctx.stroke();
+
+    // Draw data points
+    results.forEach((item, index) => {
+      ctx.beginPath();
+      ctx.fillStyle = color;
+      ctx.arc(x(index), y(item[property]), 4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  drawLine("actual", "#43c9a5");
+  drawLine("smaPredicted", "#e7c783");
+  drawLine("wmaPredicted", "#829cff");
+
+  // Draw month labels
+  ctx.fillStyle = textColor;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+
+  results.forEach((item, index) => {
+    const [year, month] = item.month.split("-");
+
+const monthLabel = new Date(
+  Number(year),
+  Number(month) - 1,
+  1
+).toLocaleDateString("en-KE", {
+  month: "short",
+  year: "numeric"
+});
+
+    ctx.fillText(
+      monthLabel,
+      x(index),
+      height - padding.bottom + 12
+    );
+  });
+
+canvas.onmousemove = event => {
+  if (!tooltip) return;
+
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  let nearestIndex = 0;
+  let smallestXDistance = Infinity;
+
+  results.forEach((item, index) => {
+    const distance = Math.abs(mouseX - x(index));
+
+    if (distance < smallestXDistance) {
+      smallestXDistance = distance;
+      nearestIndex = index;
+    }
+  });
+
+  const item = results[nearestIndex];
+
+  const series = [
+    { name: "Actual Savings", value: item.actual },
+    { name: "SMA Prediction", value: item.smaPredicted },
+    { name: "WMA Prediction", value: item.wmaPredicted }
+  ];
+
+  let closestSeries = series[0];
+  let smallestYDistance = Infinity;
+
+  series.forEach(entry => {
+    const distance = Math.abs(mouseY - y(entry.value));
+
+    if (distance < smallestYDistance) {
+      smallestYDistance = distance;
+      closestSeries = entry;
+    }
+  });
+
+  tooltip.innerHTML = `
+    <strong>${item.month}</strong><br>
+    ${closestSeries.name}: KES ${closestSeries.value.toLocaleString("en-KE", {
+      maximumFractionDigits: 0
+    })}
+  `;
+
+  tooltip.style.display = "block";
+
+  const parentRect = canvas.parentElement.getBoundingClientRect();
+
+  tooltip.style.left = `${Math.max(
+    8,
+    Math.min(
+      event.clientX - parentRect.left + 12,
+      parentRect.width - tooltip.offsetWidth - 8
+    )
+  )}px`;
+
+  tooltip.style.top = `${Math.max(
+    8,
+    event.clientY - parentRect.top - tooltip.offsetHeight - 12
+  )}px`;
+};
+
+canvas.onmouseleave = () => {
+  if (tooltip) tooltip.style.display = "none";
+};
+
+}
+
+function analyzeFinancialAnomalies() {
+  const anomalies = [];
+
+  const validTransactions = transactions
+    .filter(item =>
+      item.date &&
+      /^\d{4}-\d{2}-\d{2}$/.test(String(item.date)) &&
+      Number.isFinite(Number(item.amount)) &&
+      Number(item.amount) > 0 &&
+      ["income", "expense"].includes(item.type)
+    )
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+
+  const expenses = validTransactions.filter(
+    item => item.type === "expense"
+  );
+
+  // Rule 1: Unusually large expenses
+  expenses.forEach(item => {
+    const previousExpenses = expenses.filter(previous =>
+      previous.id !== item.id &&
+      previous.category === item.category &&
+      previous.date < item.date
+    );
+
+    if (previousExpenses.length < 3) return;
+
+    const amounts = previousExpenses
+      .map(entry => Number(entry.amount))
+      .sort((a, b) => a - b);
+
+    const middle = Math.floor(amounts.length / 2);
+
+    const median = amounts.length % 2 === 0
+      ? (amounts[middle - 1] + amounts[middle]) / 2
+      : amounts[middle];
+
+    if (
+      Number(item.amount) >= Math.max(median * 2.5, median + 1000)
+    ) {
+      anomalies.push({
+        id: `large-${item.id}`,
+        transactionId: item.id,
+        type: "Large Expense",
+        severity: "high",
+        title: "Unusually large expense",
+        description:
+          `${item.description} is significantly higher than previous ` +
+          `${item.category} expenses. The historical median is ` +
+          `${formatMoney(median)}.`,
+        amount: Number(item.amount),
+        date: item.date
+      });
+    }
+  });
+
+  // Rule 2: Category spending spikes
+  const monthlyTotals = {};
+
+  expenses.forEach(item => {
+    const month = String(item.date).slice(0, 7);
+    const category = item.category || "Other";
+    const key = `${category}|${month}`;
+
+    monthlyTotals[key] = (monthlyTotals[key] || 0) + Number(item.amount);
+  });
+
+  const categories = [...new Set(
+    expenses.map(item => item.category || "Other")
+  )];
+
+  categories.forEach(category => {
+    const months = [...new Set(
+      expenses
+        .filter(item => (item.category || "Other") === category)
+        .map(item => String(item.date).slice(0, 7))
+    )].sort();
+
+    months.forEach((month, index) => {
+      if (index < 2) return;
+
+      const previousMonths = months.slice(
+        Math.max(0, index - 3),
+        index
+      );
+
+      const average = previousMonths.reduce((sum, previousMonth) => {
+        return sum +
+          (monthlyTotals[`${category}|${previousMonth}`] || 0);
+      }, 0) / previousMonths.length;
+
+      const currentTotal = monthlyTotals[`${category}|${month}`];
+
+      if (average > 0 && currentTotal >= average * 1.8 &&
+          currentTotal - average >= 1000) {
+        anomalies.push({
+          id: `spike-${category}-${month}`,
+          type: "Category Spending Spike",
+          severity: "medium",
+          title: `${category} spending increased`,
+          description:
+            `${category} spending in ${month} is significantly above ` +
+            `the average of the preceding recorded months.`,
+          amount: currentTotal,
+          date: month
+        });
+      }
+    });
+  });
+
+  // Rule 3: Possible duplicate transactions
+  const seenTransactions = new Map();
+
+  expenses.forEach(item => {
+    const key = [
+      String(item.description || "").trim().toLowerCase(),
+      Number(item.amount),
+      String(item.category || "Other").toLowerCase(),
+      item.date
+    ].join("|");
+
+    if (seenTransactions.has(key)) {
+      anomalies.push({
+        id: `duplicate-${item.id}`,
+        transactionId: item.id,
+        type: "Possible Duplicate",
+        severity: "high",
+        title: "Possible duplicate transaction",
+        description:
+          "Another expense has the same description, amount, category and date.",
+        amount: Number(item.amount),
+        date: item.date
+      });
+    } else {
+      seenTransactions.set(key, item.id);
+    }
+  });
+
+  return anomalies;
+}
+// Register existing anomalies without sending notifications
+knownAnomalyIds = new Set(
+  analyzeFinancialAnomalies().map(item => item.id)
+);
+
+function renderAnomalies() {
+  const anomalies = analyzeFinancialAnomalies();
+
+  const totalDisplay = document.getElementById("anomaly-total");
+  const highDisplay = document.getElementById("anomaly-high");
+  const mediumDisplay = document.getElementById("anomaly-medium");
+  const statusDisplay = document.getElementById("anomaly-status");
+  const anomalyList = document.getElementById("anomaly-list");
+
+  if (!totalDisplay || !highDisplay ||
+      !mediumDisplay || !statusDisplay || !anomalyList) {
+    return;
+  }
+
+  const highCount = anomalies.filter(
+    item => item.severity === "high"
+  ).length;
+
+  const mediumCount = anomalies.filter(
+    item => item.severity === "medium"
+  ).length;
+
+  totalDisplay.textContent = anomalies.length;
+  highDisplay.textContent = highCount;
+  mediumDisplay.textContent = mediumCount;
+  statusDisplay.textContent = "Active";
+
+  anomalyList.replaceChildren();
+
+  if (anomalies.length === 0) {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.textContent =
+      "No anomalies detected. QORVILO is monitoring your transactions.";
+    anomalyList.appendChild(emptyMessage);
+    return;
+  }
+
+  anomalies.forEach(item => {
+    const card = document.createElement("div");
+    card.className = `anomaly-card ${item.severity}`;
+
+    const heading = document.createElement("h4");
+    heading.textContent = item.title;
+
+    const description = document.createElement("p");
+    description.textContent = item.description;
+
+    const details = document.createElement("div");
+    details.className = "anomaly-details";
+    details.textContent =
+      `${item.date} • ${formatMoney(item.amount)}`;
+
+    const priority = document.createElement("span");
+    priority.className = `anomaly-priority ${item.severity}`;
+    priority.textContent =
+      item.severity === "high" ? "HIGH PRIORITY" : "MEDIUM PRIORITY";
+
+    card.append(heading, description, details, priority);
+    anomalyList.appendChild(card);
+  });
+}
+
+  function showAnomalyToast(anomaly) {
+  const container = document.getElementById(
+    "anomaly-toast-container"
+  );
+
+  if (!container) return;
+
+  const toast = document.createElement("div");
+  toast.className = "anomaly-toast";
+
+  const heading = document.createElement("strong");
+  heading.textContent = "⚠ QORVILO Security Alert";
+
+  const message = document.createElement("p");
+  message.textContent = anomaly.description;
+
+  toast.append(heading, message);
+  container.appendChild(toast);
+
+  // Remove notification after 6 seconds
+  setTimeout(() => {
+    toast.remove();
+  }, 6000);
+}
+if (anomalyNav && anomalyView) {
+  anomalyNav.addEventListener("click", event => {
+    event.preventDefault();
+
+    // Show Anomaly Detection
+    anomalyView.classList.add("active");
+
+    // Hide other dedicated views
+    if (forecastView) {
+      forecastView.classList.remove("active");
+    }
+
+    const assistantView = document.getElementById("assistant");
+
+    if (assistantView) {
+      assistantView.classList.remove("active");
+    }
+
+    // Update active sidebar link
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.classList.remove("active");
+    });
+
+    anomalyNav.classList.add("active");
+    renderAnomalies();
+
+    // Position the page in view
+    anomalyView.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+}
 

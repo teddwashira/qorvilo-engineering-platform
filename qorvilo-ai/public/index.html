@@ -10,6 +10,10 @@
 </head>
 
 <body>
+    
+    <div id="anomaly-toast-container"
+     aria-live="polite"
+     aria-atomic="true"></div>
   <div class="app-layout">
 
     <aside class="sidebar">
@@ -30,6 +34,9 @@
 </a>
 <a href="#forecast" class="nav-link" id="forecast-nav">
   <span>↗</span> Financial Forecast
+</a>
+<a href="#anomalies" class="nav-link" id="anomaly-nav">
+  <span>⚠</span> Anomaly Detection
 </a>
       </nav>
 
@@ -392,6 +399,19 @@
     <h3>Historical Backtest Results</h3>
 
     <p>Month-by-month comparison of predictions and actual results.</p>
+   
+<div class="forecast-chart-container">
+  <h4>Prediction Performance</h4>
+  <canvas id="forecast-accuracy-chart"></canvas>
+  <div id="forecast-chart-tooltip" class="forecast-chart-tooltip"></div>
+
+  <div class="forecast-chart-legend">
+    <span><i class="actual-legend"></i> Actual Savings</span>
+    <span><i class="sma-legend"></i> SMA Prediction</span>
+    <span><i class="wma-legend"></i> WMA Prediction</span>
+  </div>
+</div>
+ 
 
     <div class="accuracy-table-wrapper">
       <table class="accuracy-table">
@@ -479,6 +499,72 @@
 </button>
 
 </section>
+
+<section class="panel anomaly-view" id="anomalies">
+
+  <div class="section-heading">
+    <div>
+      <h2>Anomaly Detection</h2>
+      <p>QORVILO monitors unusual financial activity.</p>
+    </div>
+    <span class="status-badge">Monitoring Active</span>
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <span>Total Anomalies</span>
+      <h3 id="anomaly-total">0</h3>
+    </div>
+
+    <div class="stat-card">
+      <span>High Priority</span>
+      <h3 id="anomaly-high">0</h3>
+    </div>
+
+    <div class="stat-card">
+      <span>Medium Priority</span>
+      <h3 id="anomaly-medium">0</h3>
+    </div>
+
+    <div class="stat-card">
+      <span>Monitoring Status</span>
+      <h3 id="anomaly-status">Active</h3>
+    </div>
+
+  </div>
+
+  <div class="panel">
+    <h3>Detected Anomalies</h3>
+    <p>Unusual activity identified in your transactions.</p>
+
+    <div id="anomaly-list">
+      <p>No anomalies detected yet.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Detection Methods</h3>
+
+    <div class="detection-method">
+      <strong>Unusually Large Transactions</strong>
+      <p>Identifies expenses that are unusually large compared with historical spending.</p>
+    </div>
+
+    <div class="detection-method">
+      <strong>Category Spending Spikes</strong>
+      <p>Detects unusual increases in spending within a category.</p>
+    </div>
+
+    <div class="detection-method">
+      <strong>Possible Duplicate Transactions</strong>
+      <p>Identifies transactions that may have been entered more than once.</p>
+    </div>
+
+  </div>
+
+</section>
+
 
 <!-- ADD TRANSACTION MODAL -->
 <div class="modal-overlay" id="transaction-modal">
