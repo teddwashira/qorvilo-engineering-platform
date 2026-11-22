@@ -1,0 +1,25 @@
+﻿# Node.js
+node_modules/
+npm-debug.log*
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local databases and financial data
+*.sqlite
+*.db
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
