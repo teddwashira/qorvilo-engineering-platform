@@ -1,7 +1,6 @@
-
 {
   "project": "QORVILO",
-  "experiment": "Anomaly Detection v0.3",
+  "experiment": "Anomaly Detection v0.5",
   "dataset_type": "synthetic",
   "currency": "KES",
   "scenarios": [
@@ -9,103 +8,4752 @@
       "id": "SC001",
       "rule": "large_expense",
       "transactions": [
-        {"id": "L1", "date": "2026-10-01", "description": "Shopping 1", "amount": 1000, "category": "Shopping", "type": "expense"},
-        {"id": "L2", "date": "2026-10-05", "description": "Shopping 2", "amount": 1000, "category": "Shopping", "type": "expense"},
-        {"id": "L3", "date": "2026-10-10", "description": "Shopping 3", "amount": 1000, "category": "Shopping", "type": "expense"},
-        {"id": "L4", "date": "2026-11-01", "description": "Large shopping", "amount": 6000, "category": "Shopping", "type": "expense"}
+        {
+          "id": "L1",
+          "date": "2026-10-01",
+          "description": "Shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L2",
+          "date": "2026-10-05",
+          "description": "Shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L3",
+          "date": "2026-10-10",
+          "description": "Shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 6000,
+          "category": "Shopping",
+          "type": "expense"
+        }
       ],
-      "expected_anomaly_ids": ["large-L4"]
+      "expected_anomaly_ids": [
+        "large-L4"
+      ]
     },
     {
       "id": "SC002",
       "rule": "possible_duplicate",
       "transactions": [
-        {"id": "D1", "date": "2026-11-05", "description": "Test Duplicate", "amount": 5000, "category": "Shopping", "type": "expense"},
-        {"id": "D2", "date": "2026-11-05", "description": "Test Duplicate", "amount": 5000, "category": "Shopping", "type": "expense"}
+        {
+          "id": "D1",
+          "date": "2026-11-05",
+          "description": "Test Duplicate",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D2",
+          "date": "2026-11-05",
+          "description": "Test Duplicate",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
       ],
-      "expected_anomaly_ids": ["duplicate-D2"]
+      "expected_anomaly_ids": [
+        "duplicate-D2"
+      ]
     },
     {
       "id": "SC003",
       "rule": "category_spending_spike",
       "transactions": [
-        {"id": "S1", "date": "2026-07-01", "description": "July shopping", "amount": 2000, "category": "Shopping", "type": "expense"},
-        {"id": "S2", "date": "2026-08-01", "description": "August shopping", "amount": 2000, "category": "Shopping", "type": "expense"},
-        {"id": "S3", "date": "2026-09-01", "description": "September shopping", "amount": 2000, "category": "Shopping", "type": "expense"},
-        {"id": "S4", "date": "2026-10-01", "description": "October shopping", "amount": 6000, "category": "Shopping", "type": "expense"}
+        {
+          "id": "S1",
+          "date": "2026-07-01",
+          "description": "July shopping",
+          "amount": 2000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S2",
+          "date": "2026-08-01",
+          "description": "August shopping",
+          "amount": 2000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S3",
+          "date": "2026-09-01",
+          "description": "September shopping",
+          "amount": 2000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S4",
+          "date": "2026-10-01",
+          "description": "October shopping",
+          "amount": 6000,
+          "category": "Shopping",
+          "type": "expense"
+        }
       ],
       "expected_anomaly_ids": [
-  "large-S4",
-  "spike-Shopping-2026-10"
-]
+        "large-S4",
+        "spike-Shopping-2026-10"
+      ]
     },
     {
-  "id": "SC004",
-  "rule": "normal_transactions",
-  "transactions": [
-    {
-      "id": "N1",
-      "date": "2026-11-01",
-      "description": "Normal groceries",
-      "amount": 500,
-      "category": "Groceries",
-      "type": "expense"
+      "id": "SC004",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N1",
+          "date": "2026-11-01",
+          "description": "Normal groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N2",
+          "date": "2026-11-05",
+          "description": "Normal transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N3",
+          "date": "2026-11-10",
+          "description": "Normal lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
     },
     {
-      "id": "N2",
-      "date": "2026-11-05",
-      "description": "Normal transport",
-      "amount": 300,
-      "category": "Transport",
-      "type": "expense"
+      "id": "SC005",
+      "rule": "normal_spending_pattern",
+      "transactions": [
+        {
+          "id": "N4",
+          "date": "2026-07-01",
+          "description": "Transport July",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N5",
+          "date": "2026-08-01",
+          "description": "Transport August",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N6",
+          "date": "2026-09-01",
+          "description": "Transport September",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N7",
+          "date": "2026-10-01",
+          "description": "Transport October",
+          "amount": 1200,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
     },
     {
-      "id": "N3",
-      "date": "2026-11-10",
-      "description": "Normal lunch",
-      "amount": 200,
-      "category": "Food",
-      "type": "expense"
+      "id": "SC006",
+      "rule": "category_spike_without_large_expense",
+      "transactions": [
+        {
+          "id": "C1",
+          "date": "2026-07-01",
+          "description": "Transport July A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "C2",
+          "date": "2026-07-02",
+          "description": "Transport July B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "C3",
+          "date": "2026-08-01",
+          "description": "Transport August A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "C4",
+          "date": "2026-08-02",
+          "description": "Transport August B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "C5",
+          "date": "2026-09-01",
+          "description": "Transport September A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "C6",
+          "date": "2026-09-02",
+          "description": "Transport September B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "C7",
+          "date": "2026-10-01",
+          "description": "Transport October A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "C8",
+          "date": "2026-10-02",
+          "description": "Transport October B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC007",
+      "rule": "similar_transactions_different_dates",
+      "transactions": [
+        {
+          "id": "D3",
+          "date": "2026-11-01",
+          "description": "Fuel purchase",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "D4",
+          "date": "2026-11-02",
+          "description": "Fuel purchase",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC008",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L001-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L001-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L001-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L001-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L001-4"
+      ]
+    },
+    {
+      "id": "SC009",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L002-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L002-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L002-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L002-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L002-4"
+      ]
+    },
+    {
+      "id": "SC010",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L003-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L003-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L003-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L003-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L003-4"
+      ]
+    },
+    {
+      "id": "SC011",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L004-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L004-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L004-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L004-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L004-4"
+      ]
+    },
+    {
+      "id": "SC012",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L005-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L005-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L005-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L005-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L005-4"
+      ]
+    },
+    {
+      "id": "SC013",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L006-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L006-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L006-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L006-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L006-4"
+      ]
+    },
+    {
+      "id": "SC014",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L007-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L007-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L007-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L007-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L007-4"
+      ]
+    },
+    {
+      "id": "SC015",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L008-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L008-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L008-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L008-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L008-4"
+      ]
+    },
+    {
+      "id": "SC016",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L009-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L009-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L009-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L009-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L009-4"
+      ]
+    },
+    {
+      "id": "SC017",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L010-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L010-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L010-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L010-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L010-4"
+      ]
+    },
+    {
+      "id": "SC018",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L011-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L011-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L011-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L011-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L011-4"
+      ]
+    },
+    {
+      "id": "SC019",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L012-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L012-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L012-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L012-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L012-4"
+      ]
+    },
+    {
+      "id": "SC020",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L013-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L013-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L013-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L013-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L013-4"
+      ]
+    },
+    {
+      "id": "SC021",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L014-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L014-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L014-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L014-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L014-4"
+      ]
+    },
+    {
+      "id": "SC022",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L015-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L015-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L015-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L015-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L015-4"
+      ]
+    },
+    {
+      "id": "SC023",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L016-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L016-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L016-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L016-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L016-4"
+      ]
+    },
+    {
+      "id": "SC024",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L017-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L017-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L017-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L017-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L017-4"
+      ]
+    },
+    {
+      "id": "SC025",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L018-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L018-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L018-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L018-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L018-4"
+      ]
+    },
+    {
+      "id": "SC026",
+      "rule": "large_expense",
+      "transactions": [
+        {
+          "id": "L019-1",
+          "date": "2026-10-01",
+          "description": "Normal shopping 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L019-2",
+          "date": "2026-10-05",
+          "description": "Normal shopping 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L019-3",
+          "date": "2026-10-10",
+          "description": "Normal shopping 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L019-4",
+          "date": "2026-11-01",
+          "description": "Large shopping",
+          "amount": 4000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L019-4"
+      ]
+    },
+    {
+      "id": "SC027",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D001-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D001-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D001-2"
+      ]
+    },
+    {
+      "id": "SC028",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D002-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D002-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D002-2"
+      ]
+    },
+    {
+      "id": "SC029",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D003-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D003-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D003-2"
+      ]
+    },
+    {
+      "id": "SC030",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D004-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D004-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D004-2"
+      ]
+    },
+    {
+      "id": "SC031",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D005-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D005-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D005-2"
+      ]
+    },
+    {
+      "id": "SC032",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D006-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D006-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D006-2"
+      ]
+    },
+    {
+      "id": "SC033",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D007-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D007-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D007-2"
+      ]
+    },
+    {
+      "id": "SC034",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D008-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D008-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D008-2"
+      ]
+    },
+    {
+      "id": "SC035",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D009-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D009-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D009-2"
+      ]
+    },
+    {
+      "id": "SC036",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D010-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D010-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D010-2"
+      ]
+    },
+    {
+      "id": "SC037",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D011-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D011-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D011-2"
+      ]
+    },
+    {
+      "id": "SC038",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D012-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D012-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D012-2"
+      ]
+    },
+    {
+      "id": "SC039",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D013-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D013-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D013-2"
+      ]
+    },
+    {
+      "id": "SC040",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D014-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D014-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D014-2"
+      ]
+    },
+    {
+      "id": "SC041",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D015-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D015-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D015-2"
+      ]
+    },
+    {
+      "id": "SC042",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D016-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D016-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D016-2"
+      ]
+    },
+    {
+      "id": "SC043",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D017-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D017-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D017-2"
+      ]
+    },
+    {
+      "id": "SC044",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D018-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D018-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D018-2"
+      ]
+    },
+    {
+      "id": "SC045",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {
+          "id": "D019-1",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D019-2",
+          "date": "2026-11-05",
+          "description": "Duplicate test",
+          "amount": 5000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D019-2"
+      ]
+    },
+    {
+      "id": "SC046",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S001-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S001-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S001-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S001-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S001-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S001-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S001-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S001-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC047",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S002-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S002-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S002-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S002-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S002-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S002-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S002-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S002-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC048",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S003-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S003-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S003-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S003-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S003-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S003-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S003-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S003-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC049",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S004-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S004-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S004-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S004-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S004-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S004-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S004-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S004-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC050",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S005-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S005-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S005-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S005-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S005-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S005-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S005-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S005-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC051",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S006-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S006-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S006-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S006-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S006-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S006-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S006-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S006-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC052",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S007-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S007-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S007-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S007-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S007-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S007-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S007-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S007-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC053",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S008-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S008-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S008-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S008-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S008-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S008-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S008-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S008-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC054",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S009-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S009-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S009-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S009-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S009-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S009-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S009-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S009-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC055",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S010-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S010-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S010-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S010-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S010-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S010-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S010-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S010-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC056",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S011-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S011-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S011-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S011-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S011-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S011-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S011-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S011-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC057",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S012-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S012-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S012-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S012-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S012-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S012-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S012-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S012-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC058",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S013-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S013-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S013-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S013-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S013-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S013-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S013-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S013-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC059",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S014-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S014-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S014-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S014-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S014-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S014-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S014-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S014-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC060",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S015-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S015-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S015-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S015-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S015-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S015-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S015-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S015-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC061",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S016-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S016-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S016-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S016-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S016-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S016-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S016-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S016-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC062",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S017-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S017-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S017-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S017-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S017-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S017-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S017-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S017-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC063",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S018-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S018-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S018-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S018-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S018-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S018-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S018-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S018-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC064",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {
+          "id": "S019-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S019-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S019-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S019-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S019-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S019-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S019-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S019-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1800,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-10"
+      ]
+    },
+    {
+      "id": "SC065",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N001-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N001-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N001-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC066",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N002-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N002-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N002-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC067",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N003-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N003-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N003-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC068",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N004-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N004-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N004-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC069",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N005-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N005-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N005-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC070",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N006-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N006-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N006-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC071",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N007-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N007-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N007-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC072",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N008-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N008-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N008-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC073",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N009-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N009-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N009-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC074",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N010-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N010-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N010-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC075",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N011-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N011-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N011-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC076",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N012-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N012-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N012-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC077",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N013-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N013-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N013-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC078",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N014-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N014-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N014-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC079",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N015-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N015-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N015-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC080",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N016-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N016-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N016-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC081",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N017-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N017-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N017-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC082",
+      "rule": "normal_transactions",
+      "transactions": [
+        {
+          "id": "N018-1",
+          "date": "2026-11-01",
+          "description": "Groceries",
+          "amount": 500,
+          "category": "Groceries",
+          "type": "expense"
+        },
+        {
+          "id": "N018-2",
+          "date": "2026-11-05",
+          "description": "Transport",
+          "amount": 300,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N018-3",
+          "date": "2026-11-10",
+          "description": "Lunch",
+          "amount": 200,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC083",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E001-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E001-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E001-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E001-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E001-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E001-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E001-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E001-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC084",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E002-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E002-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E002-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E002-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E002-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E002-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E002-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E002-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC085",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E003-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E003-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E003-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E003-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E003-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E003-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E003-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E003-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC086",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E004-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E004-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E004-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E004-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E004-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E004-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E004-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E004-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC087",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E005-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E005-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E005-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E005-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E005-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E005-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E005-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E005-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC088",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E006-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E006-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E006-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E006-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E006-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E006-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E006-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E006-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC089",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E007-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E007-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E007-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E007-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E007-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E007-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E007-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E007-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC090",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E008-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E008-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E008-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E008-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E008-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E008-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E008-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E008-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC091",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E009-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E009-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E009-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E009-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E009-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E009-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E009-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E009-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC092",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E010-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E010-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E010-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E010-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E010-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E010-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E010-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E010-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC093",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E011-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E011-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E011-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E011-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E011-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E011-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E011-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E011-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC094",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E012-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E012-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E012-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E012-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E012-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E012-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E012-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E012-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC095",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E013-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E013-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E013-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E013-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E013-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E013-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E013-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E013-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC096",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E014-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E014-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E014-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E014-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E014-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E014-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E014-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E014-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC097",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E015-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E015-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E015-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E015-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E015-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E015-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E015-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E015-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC098",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E016-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E016-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E016-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E016-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E016-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E016-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E016-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E016-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC099",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E017-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E017-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E017-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E017-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E017-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E017-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E017-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E017-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "SC100",
+      "rule": "near_threshold_normal",
+      "transactions": [
+        {
+          "id": "E018-07-1",
+          "date": "2026-07-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E018-07-2",
+          "date": "2026-07-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E018-08-1",
+          "date": "2026-08-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E018-08-2",
+          "date": "2026-08-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E018-09-1",
+          "date": "2026-09-01",
+          "description": "Regular transport A",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E018-09-2",
+          "date": "2026-09-02",
+          "description": "Regular transport B",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E018-10-1",
+          "date": "2026-10-01",
+          "description": "October transport A",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "E018-10-2",
+          "date": "2026-10-02",
+          "description": "October transport B",
+          "amount": 1500,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
     }
-  ],
-  "expected_anomaly_ids": []
-},
-{
-  "id": "SC005",
-  "rule": "normal_spending_pattern",
-  "transactions": [
-    {"id": "N4", "date": "2026-07-01", "description": "Transport July", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "N5", "date": "2026-08-01", "description": "Transport August", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "N6", "date": "2026-09-01", "description": "Transport September", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "N7", "date": "2026-10-01", "description": "Transport October", "amount": 1200, "category": "Transport", "type": "expense"}
-  ],
-  "expected_anomaly_ids": []
-},
-{
-  "id": "SC006",
-  "rule": "category_spike_without_large_expense",
-  "transactions": [
-    {"id": "C1", "date": "2026-07-01", "description": "Transport July A", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "C2", "date": "2026-07-02", "description": "Transport July B", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "C3", "date": "2026-08-01", "description": "Transport August A", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "C4", "date": "2026-08-02", "description": "Transport August B", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "C5", "date": "2026-09-01", "description": "Transport September A", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "C6", "date": "2026-09-02", "description": "Transport September B", "amount": 1000, "category": "Transport", "type": "expense"},
-    {"id": "C7", "date": "2026-10-01", "description": "Transport October A", "amount": 1800, "category": "Transport", "type": "expense"},
-    {"id": "C8", "date": "2026-10-02", "description": "Transport October B", "amount": 1800, "category": "Transport", "type": "expense"}
-  ],
-  "expected_anomaly_ids": ["spike-Transport-2026-10"]
-},
-{
-  "id": "SC007",
-  "rule": "similar_transactions_different_dates",
-  "transactions": [
-    {"id": "D3", "date": "2026-11-01", "description": "Fuel purchase", "amount": 1500, "category": "Transport", "type": "expense"},
-    {"id": "D4", "date": "2026-11-02", "description": "Fuel purchase", "amount": 1500, "category": "Transport", "type": "expense"}
-  ],
-  "expected_anomaly_ids": []
-}
   ]
-
 }
-
