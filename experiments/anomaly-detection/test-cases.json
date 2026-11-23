@@ -34,7 +34,10 @@
         {"id": "S3", "date": "2026-09-01", "description": "September shopping", "amount": 2000, "category": "Shopping", "type": "expense"},
         {"id": "S4", "date": "2026-10-01", "description": "October shopping", "amount": 6000, "category": "Shopping", "type": "expense"}
       ],
-      "expected_anomaly_ids": ["spike-Shopping-2026-10"]
+      "expected_anomaly_ids": [
+  "large-S4",
+  "spike-Shopping-2026-10"
+]
     },
     {
   "id": "SC004",
@@ -64,6 +67,41 @@
       "category": "Food",
       "type": "expense"
     }
+  ],
+  "expected_anomaly_ids": []
+},
+{
+  "id": "SC005",
+  "rule": "normal_spending_pattern",
+  "transactions": [
+    {"id": "N4", "date": "2026-07-01", "description": "Transport July", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "N5", "date": "2026-08-01", "description": "Transport August", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "N6", "date": "2026-09-01", "description": "Transport September", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "N7", "date": "2026-10-01", "description": "Transport October", "amount": 1200, "category": "Transport", "type": "expense"}
+  ],
+  "expected_anomaly_ids": []
+},
+{
+  "id": "SC006",
+  "rule": "category_spike_without_large_expense",
+  "transactions": [
+    {"id": "C1", "date": "2026-07-01", "description": "Transport July A", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "C2", "date": "2026-07-02", "description": "Transport July B", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "C3", "date": "2026-08-01", "description": "Transport August A", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "C4", "date": "2026-08-02", "description": "Transport August B", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "C5", "date": "2026-09-01", "description": "Transport September A", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "C6", "date": "2026-09-02", "description": "Transport September B", "amount": 1000, "category": "Transport", "type": "expense"},
+    {"id": "C7", "date": "2026-10-01", "description": "Transport October A", "amount": 1800, "category": "Transport", "type": "expense"},
+    {"id": "C8", "date": "2026-10-02", "description": "Transport October B", "amount": 1800, "category": "Transport", "type": "expense"}
+  ],
+  "expected_anomaly_ids": ["spike-Transport-2026-10"]
+},
+{
+  "id": "SC007",
+  "rule": "similar_transactions_different_dates",
+  "transactions": [
+    {"id": "D3", "date": "2026-11-01", "description": "Fuel purchase", "amount": 1500, "category": "Transport", "type": "expense"},
+    {"id": "D4", "date": "2026-11-02", "description": "Fuel purchase", "amount": 1500, "category": "Transport", "type": "expense"}
   ],
   "expected_anomaly_ids": []
 }

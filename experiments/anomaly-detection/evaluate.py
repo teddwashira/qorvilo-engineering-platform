@@ -118,6 +118,10 @@ def main():
     total_fn = 0
     total_tn = 0
     latency_results = []
+    scenario_tp = 0
+    scenario_fp = 0
+    scenario_fn = 0
+    scenario_tn = 0
 
     print("=" * 55)
     print("QORVILO ANOMALY DETECTION EVALUATION")
@@ -133,10 +137,19 @@ def main():
         tp = len(expected & detected)
         fp = len(detected - expected)
         fn = len(expected - detected)
+        # Scenario-level classification
+        if expected and detected:
+          scenario_tp += 1
+        elif expected and not detected:
+         scenario_fn += 1
+        elif not expected and detected:
+         scenario_fp += 1
+        else:
+          scenario_tn += 1
 
         # In normal-only scenarios, every valid transaction is a
         # labelled negative unless the evaluator produced an alert for it.
-        if scenario["rule"] == "normal_transactions":
+        if len(expected) == 0:
             flagged_ids = set()
             for alert_id in detected:
                 parts = alert_id.split("-", 1)
@@ -164,7 +177,7 @@ def main():
         print("True positives:", tp)
         print("False positives:", fp)
         print("False negatives:", fn)
-        print("True negatives:", tn)
+        print("Normal transactions not flagged:", tn)
         print(f"Detection latency: {latency_ms:.4f} ms")
         print(f"Precision: {precision:.2%}")
         print(f"Recall: {recall:.2%}")
@@ -178,9 +191,9 @@ def main():
         if total_tp + total_fn else 0
     )
     false_positive_rate = (
-        total_fp / (total_fp + total_tn)
-        if total_fp + total_tn else 0
-    )
+    scenario_fp / (scenario_fp + scenario_tn)
+    if scenario_fp + scenario_tn else 0
+)
     average_latency = (
     sum(latency_results) / len(latency_results)
     if latency_results else 0
@@ -192,7 +205,12 @@ def main():
     print("True positives:", total_tp)
     print("False positives:", total_fp)
     print("False negatives:", total_fn)
-    print("True negatives:", total_tn)
+    print("Normal transactions not flagged:", total_tn)
+    print("\nSCENARIO-LEVEL RESULTS")
+    print("Scenario true positives:", scenario_tp)
+    print("Scenario false positives:", scenario_fp)
+    print("Scenario false negatives:", scenario_fn)
+    print("Scenario true negatives:", scenario_tn)
     print(f"Overall precision: {overall_precision:.2%}")
     print(f"Overall recall: {overall_recall:.2%}")
     print(f"False-positive rate: {false_positive_rate:.2%}")
