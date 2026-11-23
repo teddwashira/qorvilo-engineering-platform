@@ -1,0 +1,73 @@
+
+{
+  "project": "QORVILO",
+  "experiment": "Anomaly Detection v0.3",
+  "dataset_type": "synthetic",
+  "currency": "KES",
+  "scenarios": [
+    {
+      "id": "SC001",
+      "rule": "large_expense",
+      "transactions": [
+        {"id": "L1", "date": "2026-10-01", "description": "Shopping 1", "amount": 1000, "category": "Shopping", "type": "expense"},
+        {"id": "L2", "date": "2026-10-05", "description": "Shopping 2", "amount": 1000, "category": "Shopping", "type": "expense"},
+        {"id": "L3", "date": "2026-10-10", "description": "Shopping 3", "amount": 1000, "category": "Shopping", "type": "expense"},
+        {"id": "L4", "date": "2026-11-01", "description": "Large shopping", "amount": 6000, "category": "Shopping", "type": "expense"}
+      ],
+      "expected_anomaly_ids": ["large-L4"]
+    },
+    {
+      "id": "SC002",
+      "rule": "possible_duplicate",
+      "transactions": [
+        {"id": "D1", "date": "2026-11-05", "description": "Test Duplicate", "amount": 5000, "category": "Shopping", "type": "expense"},
+        {"id": "D2", "date": "2026-11-05", "description": "Test Duplicate", "amount": 5000, "category": "Shopping", "type": "expense"}
+      ],
+      "expected_anomaly_ids": ["duplicate-D2"]
+    },
+    {
+      "id": "SC003",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {"id": "S1", "date": "2026-07-01", "description": "July shopping", "amount": 2000, "category": "Shopping", "type": "expense"},
+        {"id": "S2", "date": "2026-08-01", "description": "August shopping", "amount": 2000, "category": "Shopping", "type": "expense"},
+        {"id": "S3", "date": "2026-09-01", "description": "September shopping", "amount": 2000, "category": "Shopping", "type": "expense"},
+        {"id": "S4", "date": "2026-10-01", "description": "October shopping", "amount": 6000, "category": "Shopping", "type": "expense"}
+      ],
+      "expected_anomaly_ids": ["spike-Shopping-2026-10"]
+    },
+    {
+  "id": "SC004",
+  "rule": "normal_transactions",
+  "transactions": [
+    {
+      "id": "N1",
+      "date": "2026-11-01",
+      "description": "Normal groceries",
+      "amount": 500,
+      "category": "Groceries",
+      "type": "expense"
+    },
+    {
+      "id": "N2",
+      "date": "2026-11-05",
+      "description": "Normal transport",
+      "amount": 300,
+      "category": "Transport",
+      "type": "expense"
+    },
+    {
+      "id": "N3",
+      "date": "2026-11-10",
+      "description": "Normal lunch",
+      "amount": 200,
+      "category": "Food",
+      "type": "expense"
+    }
+  ],
+  "expected_anomaly_ids": []
+}
+  ]
+
+}
+
