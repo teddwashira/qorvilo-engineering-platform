@@ -23,6 +23,11 @@ let transactions = JSON.parse(
 );
 let selectedForecastAlgorithm = "SMA";
 let knownAnomalyIds = new Set();
+let dismissedAnomalyIds = new Set(
+  JSON.parse(
+    localStorage.getItem("qorvilo-dismissed-anomalies") || "[]"
+  )
+);
 
 // Rest of your QORVILO JavaScript follows...
 // 3. FORMAT MONEY IN KENYAN SHILLINGS
@@ -1587,7 +1592,16 @@ function analyzeFinancialAnomalies() {
           `${item.category} expenses. The historical median is ` +
           `${formatMoney(median)}.`,
         amount: Number(item.amount),
-        date: item.date
+
+riskScore: Math.min(
+  100,
+  Math.max(
+    30,
+    Math.round((Number(item.amount) / median) * 28)
+  )
+),
+
+date: item.date
       });
     }
   });
@@ -1640,7 +1654,16 @@ function analyzeFinancialAnomalies() {
             `${category} spending in ${month} is significantly above ` +
             `the average of the preceding recorded months.`,
           amount: currentTotal,
-          date: month
+
+riskScore: Math.min(
+  100,
+  Math.max(
+    30,
+    Math.round((currentTotal / average) * 35)
+  )
+),
+
+date: month
         });
       }
     });
@@ -1663,6 +1686,7 @@ function analyzeFinancialAnomalies() {
         transactionId: item.id,
         type: "Possible Duplicate",
         severity: "high",
+        riskScore: 85,
         title: "Possible duplicate transaction",
         description:
           "Another expense has the same description, amount, category and date.",
@@ -1681,8 +1705,14 @@ knownAnomalyIds = new Set(
   analyzeFinancialAnomalies().map(item => item.id)
 );
 
+
 function renderAnomalies() {
-  const anomalies = analyzeFinancialAnomalies();
+  const allAnomalies = analyzeFinancialAnomalies();
+
+  // Hide alerts that the user has dismissed
+  const anomalies = allAnomalies.filter(
+    item => !dismissedAnomalyIds.has(item.id)
+  );
 
   const totalDisplay = document.getElementById("anomaly-total");
   const highDisplay = document.getElementById("anomaly-high");
@@ -1709,11 +1739,67 @@ function renderAnomalies() {
   statusDisplay.textContent = "Active";
 
   anomalyList.replaceChildren();
+  // Render dismissed anomaly history
+const historyList = document.getElementById(
+  "anomaly-history-list"
+);
+
+if (historyList) {
+  historyList.replaceChildren();
+
+  const dismissedAnomalies = allAnomalies.filter(
+    item => dismissedAnomalyIds.has(item.id)
+  );
+
+  if (dismissedAnomalies.length === 0) {
+    const emptyHistory = document.createElement("p");
+    emptyHistory.textContent = "No dismissed anomalies yet.";
+    historyList.appendChild(emptyHistory);
+  } else {
+    dismissedAnomalies.forEach(item => {
+      const historyCard = document.createElement("div");
+      historyCard.className = `anomaly-card ${item.severity}`;
+
+      const heading = document.createElement("h4");
+      heading.textContent = item.title;
+
+      const details = document.createElement("p");
+      details.textContent =
+        `${item.date} • ${formatMoney(item.amount)}`;
+
+      const status = document.createElement("span");
+      status.className = "anomaly-priority medium";
+      status.textContent = "DISMISSED";
+      const restoreButton = document.createElement("button");
+restoreButton.textContent = "Restore";
+restoreButton.className = "restore-anomaly";
+
+restoreButton.addEventListener("click", () => {
+  dismissedAnomalyIds.delete(item.id);
+
+  localStorage.setItem(
+    "qorvilo-dismissed-anomalies",
+    JSON.stringify([...dismissedAnomalyIds])
+  );
+
+  renderAnomalies();
+});
+
+     historyCard.append(
+  heading,
+  details,
+  status,
+  restoreButton
+);
+      historyList.appendChild(historyCard);
+    });
+  }
+}
 
   if (anomalies.length === 0) {
     const emptyMessage = document.createElement("p");
     emptyMessage.textContent =
-      "No anomalies detected. QORVILO is monitoring your transactions.";
+      "No active anomalies. QORVILO is monitoring your transactions.";
     anomalyList.appendChild(emptyMessage);
     return;
   }
@@ -1732,16 +1818,56 @@ function renderAnomalies() {
     details.className = "anomaly-details";
     details.textContent =
       `${item.date} • ${formatMoney(item.amount)}`;
+      const riskScore = document.createElement("div");
+riskScore.className = "anomaly-risk-score " +
+  (item.riskScore >= 70
+    ? "high"
+    : item.riskScore >= 30
+      ? "medium"
+      : "low");
+
+const riskLabel = item.riskScore >= 70
+  ? "HIGH RISK"
+  : item.riskScore >= 30
+    ? "MEDIUM RISK"
+    : "LOW RISK";
+
+riskScore.textContent =
+  `Risk Score: ${item.riskScore}/100 · ${riskLabel}`;
 
     const priority = document.createElement("span");
     priority.className = `anomaly-priority ${item.severity}`;
     priority.textContent =
       item.severity === "high" ? "HIGH PRIORITY" : "MEDIUM PRIORITY";
 
-    card.append(heading, description, details, priority);
+    const dismissButton = document.createElement("button");
+    dismissButton.textContent = "Dismiss";
+    dismissButton.className = "dismiss-anomaly";
+
+    dismissButton.addEventListener("click", () => {
+      dismissedAnomalyIds.add(item.id);
+
+      localStorage.setItem(
+        "qorvilo-dismissed-anomalies",
+        JSON.stringify([...dismissedAnomalyIds])
+      );
+
+      renderAnomalies();
+    });
+
+    card.append(
+  heading,
+  description,
+  details,
+  riskScore,
+  priority,
+  dismissButton
+);
+
     anomalyList.appendChild(card);
   });
 }
+
 
   function showAnomalyToast(anomaly) {
   const container = document.getElementById(

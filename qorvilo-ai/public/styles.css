@@ -1202,3 +1202,66 @@ body:not(.light-theme) {
   font-size: 13px;
   margin: 0;
 }
+/* ANOMALY DISMISS BUTTON */
+
+.dismiss-anomaly {
+  margin-top: 14px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s ease;
+}
+
+.dismiss-anomaly:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--accent);
+}
+/* RESTORE ANOMALY BUTTON */
+
+.restore-anomaly {
+  margin-top: 14px;
+  margin-left: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s ease;
+}
+
+.restore-anomaly:hover {
+  background: var(--accent);
+  color: white;
+}
+/* ANOMALY RISK SCORES */
+.anomaly-risk-score {
+  display: inline-block;
+  margin: 8px 0 12px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.anomaly-risk-score.high {
+  background: rgba(239, 83, 80, 0.12);
+  color: #ef5350;
+}
+
+.anomaly-risk-score.medium {
+  background: rgba(240, 173, 78, 0.12);
+  color: #f0ad4e;
+}
+
+.anomaly-risk-score.low {
+  background: rgba(67, 201, 165, 0.12);
+  color: #43c9a5;
+}
