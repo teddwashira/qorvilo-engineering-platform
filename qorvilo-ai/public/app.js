@@ -187,27 +187,46 @@ chatInput.value = "";
       "assistant"
     );
 
-    const income = transactions
-      .filter(item => item.type === "income")
-      .reduce((total, item) => total + Number(item.amount || 0), 0);
+    // Validate and prepare transactions before sending them to Gemini
+const validTransactions = transactions
+  .filter(item => {
+    if (!item || typeof item !== "object") return false;
 
-    const expenses = transactions
-      .filter(item => item.type === "expense")
-      .reduce((total, item) => total + Number(item.amount || 0), 0);
+    const amount = Number(item.amount);
 
-    const financialData = {
-      currency: "KES",
-      totalIncome: income,
-      totalExpenses: expenses,
-      netBalance: income - expenses,
-      transactions: transactions.map(item => ({
-        description: item.description,
-        category: item.category,
-        type: item.type,
-        amount: Number(item.amount),
-        date: item.date
-      }))
-    };
+    return (
+      ["income", "expense"].includes(item.type) &&
+      Number.isFinite(amount) &&
+      amount >= 0
+    );
+  })
+  .map(item => ({
+    description: String(item.description || "Unspecified transaction"),
+    category: String(item.category || "Uncategorized"),
+    type: item.type,
+    amount: Number(item.amount),
+    date: String(item.date || "")
+  }));
+
+// Calculate totals using validated transactions
+const income = validTransactions
+  .filter(item => item.type === "income")
+  .reduce((total, item) => total + item.amount, 0);
+
+const expenses = validTransactions
+  .filter(item => item.type === "expense")
+  .reduce((total, item) => total + item.amount, 0);
+
+// Prepare financial information for QORVILO AI
+const financialData = {
+  currency: "KES",
+  totalIncome: income,
+  totalExpenses: expenses,
+  netBalance: income - expenses,
+  transactionCount: validTransactions.length,
+  excludedTransactionCount: transactions.length - validTransactions.length,
+  transactions: validTransactions
+};
 
     const sendButton = chatForm.querySelector("button");
     sendButton.disabled = true;
