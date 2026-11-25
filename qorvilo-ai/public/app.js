@@ -1541,10 +1541,10 @@ canvas.onmouseleave = () => {
 
 }
 
-function analyzeFinancialAnomalies() {
+function analyzeFinancialAnomalies(transactionData = transactions) {
   const anomalies = [];
 
-  const validTransactions = transactions
+  const validTransactions = transactionData
     .filter(item =>
       item.date &&
       /^\d{4}-\d{2}-\d{2}$/.test(String(item.date)) &&
