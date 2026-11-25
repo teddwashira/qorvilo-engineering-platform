@@ -28,7 +28,10 @@ let dismissedAnomalyIds = new Set(
     localStorage.getItem("qorvilo-dismissed-anomalies") || "[]"
   )
 );
-
+// Store user feedback about detected anomalies
+let anomalyFeedback = JSON.parse(
+  localStorage.getItem("qorvilo-anomaly-feedback") || "{}"
+);
 // Rest of your QORVILO JavaScript follows...
 // 3. FORMAT MONEY IN KENYAN SHILLINGS
 
@@ -2067,12 +2070,63 @@ riskScore.textContent =
       renderAnomalies();
     });
 
-    card.append(
+    // User feedback controls
+const feedbackLabel = document.createElement("p");
+feedbackLabel.textContent = "Was this alert useful?";
+feedbackLabel.className = "anomaly-feedback-label";
+
+const feedbackStatus = document.createElement("p");
+feedbackStatus.className = "anomaly-feedback-status";
+
+const currentFeedback = anomalyFeedback[item.id];
+
+if (currentFeedback) {
+  feedbackStatus.textContent =
+    currentFeedback === "expected"
+      ? "Marked as expected activity"
+      : "Marked as suspicious activity";
+}
+
+const expectedButton = document.createElement("button");
+expectedButton.textContent = "Expected activity";
+expectedButton.className = "dismiss-anomaly";
+
+const suspiciousButton = document.createElement("button");
+suspiciousButton.textContent = "Suspicious activity";
+suspiciousButton.className = "dismiss-anomaly";
+
+expectedButton.addEventListener("click", () => {
+  anomalyFeedback[item.id] = "expected";
+
+  localStorage.setItem(
+    "qorvilo-anomaly-feedback",
+    JSON.stringify(anomalyFeedback)
+  );
+
+  renderAnomalies();
+});
+
+suspiciousButton.addEventListener("click", () => {
+  anomalyFeedback[item.id] = "suspicious";
+
+  localStorage.setItem(
+    "qorvilo-anomaly-feedback",
+    JSON.stringify(anomalyFeedback)
+  );
+
+  renderAnomalies();
+});
+
+card.append(
   heading,
   description,
   details,
   riskScore,
   priority,
+  feedbackLabel,
+  feedbackStatus,
+  expectedButton,
+  suspiciousButton,
   dismissButton
 );
 
@@ -2138,4 +2192,35 @@ if (anomalyNav && anomalyView) {
     });
   });
 }
+// Export actual QORVILO anomaly feedback
+const exportFeedbackButton = document.getElementById(
+  "export-anomaly-feedback"
+);
 
+if (exportFeedbackButton) {
+  exportFeedbackButton.addEventListener("click", () => {
+    const feedbackRecords = Object.entries(anomalyFeedback).map(
+      ([anomalyId, assessment]) => ({
+        anomalyId,
+        assessment:
+          typeof assessment === "string"
+            ? assessment
+            : assessment.assessment
+      })
+    );
+
+    const file = new Blob(
+      [JSON.stringify(feedbackRecords, null, 2)],
+      { type: "application/json" }
+    );
+
+    const downloadUrl = URL.createObjectURL(file);
+    const link = document.createElement("a");
+
+    link.href = downloadUrl;
+    link.download = "feedback-v1.0.json";
+    link.click();
+
+    URL.revokeObjectURL(downloadUrl);
+  });
+}

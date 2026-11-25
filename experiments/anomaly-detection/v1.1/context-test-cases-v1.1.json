@@ -1,0 +1,62 @@
+
+[
+  {
+    "scenarioId": "CTX001",
+    "name": "Recurring school fees",
+    "input": {
+      "category": "Education",
+      "recurring_pattern_count": 3,
+      "history_months": 6
+    },
+    "expectedContext": "recurring_pattern"
+  },
+  {
+    "scenarioId": "CTX002",
+    "name": "Unexpected electricity increase",
+    "input": {
+      "category": "Bills",
+      "history_months": 1
+    },
+    "expectedContext": "insufficient_context"
+  },
+  {
+    "scenarioId": "CTX003",
+    "name": "Transport spending habit change",
+    "input": {
+      "category": "Transport",
+      "behavior_change_reported": true,
+      "expected_feedback_count": 2,
+      "history_months": 6
+    },
+    "expectedContext": "possible_behavior_change"
+  },
+  {
+    "scenarioId": "CTX004",
+    "name": "Unusual shopping expense",
+    "input": {
+      "category": "Shopping",
+      "history_months": 6
+    },
+    "expectedContext": "no_supporting_context"
+  },
+  {
+    "scenarioId": "CTX005",
+    "name": "Possible duplicate transaction",
+    "input": {
+      "category": "Shopping",
+      "duplicate_detected": true,
+      "history_months": 6
+    },
+    "expectedContext": "duplicate_detected"
+  },
+  {
+    "scenarioId": "CTX006",
+    "name": "Previously suspicious spending",
+    "input": {
+      "category": "Entertainment",
+      "suspicious_feedback_count": 2,
+      "history_months": 6
+    },
+    "expectedContext": "suspicious_history"
+  }
+]

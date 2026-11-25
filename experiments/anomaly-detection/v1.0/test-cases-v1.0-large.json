@@ -1,0 +1,4190 @@
+{
+  "project": "QORVILO",
+  "experiment": "Anomaly Detection v1.0 - Expanded Dataset",
+  "dataset_type": "synthetic",
+  "currency": "KES",
+  "random_seed": 20261125,
+  "scenario_count": 100,
+  "scenarios": [
+    {
+      "id": "LARGE-001",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L001",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 804,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L002",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 804,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L003",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 804,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L004",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L004"
+      ]
+    },
+    {
+      "id": "LARGE-002",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L011",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 961,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L012",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 961,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L013",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 961,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L014",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L014"
+      ]
+    },
+    {
+      "id": "LARGE-003",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L021",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1031,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L022",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1031,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L023",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1031,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L024",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L024"
+      ]
+    },
+    {
+      "id": "LARGE-004",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L031",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1087,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L032",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1087,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L033",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1087,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L034",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L034"
+      ]
+    },
+    {
+      "id": "LARGE-005",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L041",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 925,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L042",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 925,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L043",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 925,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L044",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L044"
+      ]
+    },
+    {
+      "id": "LARGE-006",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L051",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 818,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L052",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 818,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L053",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 818,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L054",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L054"
+      ]
+    },
+    {
+      "id": "LARGE-007",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L061",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1066,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L062",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1066,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L063",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1066,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L064",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L064"
+      ]
+    },
+    {
+      "id": "LARGE-008",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L071",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1003,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L072",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1003,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L073",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1003,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L074",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L074"
+      ]
+    },
+    {
+      "id": "LARGE-009",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L081",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 892,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L082",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 892,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L083",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 892,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L084",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L084"
+      ]
+    },
+    {
+      "id": "LARGE-010",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L091",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1142,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L092",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1142,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L093",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1142,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L094",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L094"
+      ]
+    },
+    {
+      "id": "LARGE-011",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L101",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1045,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L102",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1045,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L103",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1045,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L104",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L104"
+      ]
+    },
+    {
+      "id": "LARGE-012",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L111",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1191,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L112",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1191,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L113",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1191,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L114",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L114"
+      ]
+    },
+    {
+      "id": "LARGE-013",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L121",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 863,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L122",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 863,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L123",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 863,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L124",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L124"
+      ]
+    },
+    {
+      "id": "LARGE-014",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L131",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 952,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L132",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 952,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L133",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 952,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L134",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L134"
+      ]
+    },
+    {
+      "id": "LARGE-015",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L141",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1119,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L142",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1119,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L143",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1119,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L144",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L144"
+      ]
+    },
+    {
+      "id": "LARGE-016",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L151",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1031,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L152",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1031,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L153",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1031,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "L154",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L154"
+      ]
+    },
+    {
+      "id": "LARGE-017",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L161",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1184,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L162",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1184,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L163",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1184,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "L164",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L164"
+      ]
+    },
+    {
+      "id": "LARGE-018",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L171",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 827,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L172",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 827,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L173",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 827,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "L174",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L174"
+      ]
+    },
+    {
+      "id": "LARGE-019",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L181",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1113,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L182",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1113,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L183",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1113,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "L184",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L184"
+      ]
+    },
+    {
+      "id": "LARGE-020",
+      "rule": "large_expense_positive",
+      "transactions": [
+        {
+          "id": "L191",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1124,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L192",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1124,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L193",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1124,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "L194",
+          "date": "2026-02-05",
+          "description": "Unusually large purchase",
+          "amount": 6000,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "large-L194"
+      ]
+    },
+    {
+      "id": "BOUNDARY-001",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B001",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B002",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B003",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B004",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-002",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B011",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B012",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B013",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B014",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-003",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B021",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B022",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B023",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B024",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-004",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B031",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B032",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B033",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B034",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-005",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B041",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B042",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B043",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B044",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-006",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B051",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B052",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B053",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B054",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-007",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B061",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B062",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B063",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B064",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-008",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B071",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B072",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B073",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B074",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-009",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B081",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B082",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B083",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B084",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-010",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B091",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B092",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B093",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B094",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-011",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B101",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B102",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B103",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B104",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-012",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B111",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B112",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B113",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B114",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-013",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B121",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B122",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B123",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B124",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-014",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B131",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B132",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B133",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B134",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-015",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B141",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B142",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B143",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B144",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-016",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B151",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B152",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B153",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "B154",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-017",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B161",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B162",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B163",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "B164",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-018",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B171",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B172",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B173",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "B174",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-019",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B181",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B182",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B183",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "B184",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "BOUNDARY-020",
+      "rule": "large_expense_below_threshold",
+      "transactions": [
+        {
+          "id": "B191",
+          "date": "2026-01-05",
+          "description": "Regular purchase 1",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B192",
+          "date": "2026-01-10",
+          "description": "Regular purchase 2",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B193",
+          "date": "2026-01-15",
+          "description": "Regular purchase 3",
+          "amount": 1000,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "B194",
+          "date": "2026-02-05",
+          "description": "Purchase just below threshold",
+          "amount": 2499.0,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "DUPLICATE-001",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D001",
+          "date": "2026-04-10",
+          "description": "Merchant payment 1",
+          "amount": 3049,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D002",
+          "date": "2026-04-10",
+          "description": "Merchant payment 1",
+          "amount": 3049,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D002"
+      ]
+    },
+    {
+      "id": "DUPLICATE-002",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D011",
+          "date": "2026-04-11",
+          "description": "Merchant payment 2",
+          "amount": 855,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "D012",
+          "date": "2026-04-11",
+          "description": "Merchant payment 2",
+          "amount": 855,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D012"
+      ]
+    },
+    {
+      "id": "DUPLICATE-003",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D021",
+          "date": "2026-04-12",
+          "description": "Merchant payment 3",
+          "amount": 706,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "D022",
+          "date": "2026-04-12",
+          "description": "Merchant payment 3",
+          "amount": 706,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D022"
+      ]
+    },
+    {
+      "id": "DUPLICATE-004",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D031",
+          "date": "2026-04-13",
+          "description": "Merchant payment 4",
+          "amount": 2833,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "D032",
+          "date": "2026-04-13",
+          "description": "Merchant payment 4",
+          "amount": 2833,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D032"
+      ]
+    },
+    {
+      "id": "DUPLICATE-005",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D041",
+          "date": "2026-04-14",
+          "description": "Merchant payment 5",
+          "amount": 1948,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "D042",
+          "date": "2026-04-14",
+          "description": "Merchant payment 5",
+          "amount": 1948,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D042"
+      ]
+    },
+    {
+      "id": "DUPLICATE-006",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D051",
+          "date": "2026-04-15",
+          "description": "Merchant payment 6",
+          "amount": 1175,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D052",
+          "date": "2026-04-15",
+          "description": "Merchant payment 6",
+          "amount": 1175,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D052"
+      ]
+    },
+    {
+      "id": "DUPLICATE-007",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D061",
+          "date": "2026-04-16",
+          "description": "Merchant payment 7",
+          "amount": 2478,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "D062",
+          "date": "2026-04-16",
+          "description": "Merchant payment 7",
+          "amount": 2478,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D062"
+      ]
+    },
+    {
+      "id": "DUPLICATE-008",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D071",
+          "date": "2026-04-17",
+          "description": "Merchant payment 8",
+          "amount": 2766,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "D072",
+          "date": "2026-04-17",
+          "description": "Merchant payment 8",
+          "amount": 2766,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D072"
+      ]
+    },
+    {
+      "id": "DUPLICATE-009",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D081",
+          "date": "2026-04-18",
+          "description": "Merchant payment 9",
+          "amount": 4064,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "D082",
+          "date": "2026-04-18",
+          "description": "Merchant payment 9",
+          "amount": 4064,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D082"
+      ]
+    },
+    {
+      "id": "DUPLICATE-010",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D091",
+          "date": "2026-04-19",
+          "description": "Merchant payment 10",
+          "amount": 3175,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "D092",
+          "date": "2026-04-19",
+          "description": "Merchant payment 10",
+          "amount": 3175,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D092"
+      ]
+    },
+    {
+      "id": "DUPLICATE-011",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D101",
+          "date": "2026-04-20",
+          "description": "Merchant payment 11",
+          "amount": 2480,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D102",
+          "date": "2026-04-20",
+          "description": "Merchant payment 11",
+          "amount": 2480,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D102"
+      ]
+    },
+    {
+      "id": "DUPLICATE-012",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D111",
+          "date": "2026-04-21",
+          "description": "Merchant payment 12",
+          "amount": 3537,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "D112",
+          "date": "2026-04-21",
+          "description": "Merchant payment 12",
+          "amount": 3537,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D112"
+      ]
+    },
+    {
+      "id": "DUPLICATE-013",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D121",
+          "date": "2026-04-22",
+          "description": "Merchant payment 13",
+          "amount": 3543,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "D122",
+          "date": "2026-04-22",
+          "description": "Merchant payment 13",
+          "amount": 3543,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D122"
+      ]
+    },
+    {
+      "id": "DUPLICATE-014",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D131",
+          "date": "2026-04-23",
+          "description": "Merchant payment 14",
+          "amount": 2693,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "D132",
+          "date": "2026-04-23",
+          "description": "Merchant payment 14",
+          "amount": 2693,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D132"
+      ]
+    },
+    {
+      "id": "DUPLICATE-015",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D141",
+          "date": "2026-04-24",
+          "description": "Merchant payment 15",
+          "amount": 3180,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "D142",
+          "date": "2026-04-24",
+          "description": "Merchant payment 15",
+          "amount": 3180,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D142"
+      ]
+    },
+    {
+      "id": "DUPLICATE-016",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D151",
+          "date": "2026-04-25",
+          "description": "Merchant payment 16",
+          "amount": 659,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "D152",
+          "date": "2026-04-25",
+          "description": "Merchant payment 16",
+          "amount": 659,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D152"
+      ]
+    },
+    {
+      "id": "DUPLICATE-017",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D161",
+          "date": "2026-04-26",
+          "description": "Merchant payment 17",
+          "amount": 3159,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "D162",
+          "date": "2026-04-26",
+          "description": "Merchant payment 17",
+          "amount": 3159,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D162"
+      ]
+    },
+    {
+      "id": "DUPLICATE-018",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D171",
+          "date": "2026-04-27",
+          "description": "Merchant payment 18",
+          "amount": 4110,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "D172",
+          "date": "2026-04-27",
+          "description": "Merchant payment 18",
+          "amount": 4110,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D172"
+      ]
+    },
+    {
+      "id": "DUPLICATE-019",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D181",
+          "date": "2026-04-28",
+          "description": "Merchant payment 19",
+          "amount": 3708,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "D182",
+          "date": "2026-04-28",
+          "description": "Merchant payment 19",
+          "amount": 3708,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D182"
+      ]
+    },
+    {
+      "id": "DUPLICATE-020",
+      "rule": "duplicate_positive",
+      "transactions": [
+        {
+          "id": "D191",
+          "date": "2026-04-29",
+          "description": "Merchant payment 20",
+          "amount": 4291,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "D192",
+          "date": "2026-04-29",
+          "description": "Merchant payment 20",
+          "amount": 4291,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "duplicate-D192"
+      ]
+    },
+    {
+      "id": "SPIKE-001",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S001",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 861,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S002",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 861,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S003",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 861,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S004",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 861,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S005",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 861,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S006",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 861,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Shopping-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-002",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S011",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1160,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S012",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1160,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S013",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1160,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S014",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1160,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S015",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1160,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S016",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1160,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Food-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-003",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S021",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1027,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S022",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1027,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S023",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1027,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S024",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1027,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S025",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1027,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S026",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1027,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-004",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S031",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 877,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S032",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 877,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S033",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 877,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S034",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 877,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S035",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 877,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S036",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 877,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Entertainment-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-005",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S041",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 916,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S042",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 916,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S043",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 916,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S044",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 916,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S045",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 916,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S046",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 916,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Bills-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-006",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S051",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1012,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S052",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1012,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S053",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1012,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S054",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1012,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S055",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1012,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S056",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1012,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Shopping-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-007",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S061",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1024,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S062",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1024,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S063",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1024,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S064",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1024,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S065",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1024,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S066",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1024,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Food-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-008",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S071",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 901,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S072",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 901,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S073",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 901,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S074",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 901,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S075",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 901,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S076",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 901,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-009",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S081",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1104,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S082",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1104,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S083",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1104,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S084",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1104,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S085",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1104,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S086",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1104,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Entertainment-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-010",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S091",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1024,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S092",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1024,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S093",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1024,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S094",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1024,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S095",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1024,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S096",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1024,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Bills-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-011",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S101",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 825,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S102",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 825,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S103",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 825,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S104",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 825,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S105",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 825,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S106",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 825,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Shopping-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-012",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S111",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1112,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S112",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1112,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S113",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1112,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S114",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1112,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S115",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1112,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S116",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1112,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Food-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-013",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S121",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1177,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S122",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1177,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S123",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1177,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S124",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1177,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S125",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1177,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S126",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1177,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-014",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S131",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1130,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S132",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1130,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S133",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1130,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S134",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1130,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S135",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1130,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S136",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1130,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Entertainment-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-015",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S141",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 901,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S142",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 901,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S143",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 901,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S144",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 901,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S145",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 901,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S146",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 901,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Bills-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-016",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S151",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 955,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S152",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 955,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S153",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 955,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S154",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 955,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S155",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 955,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "S156",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 955,
+          "category": "Shopping",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Shopping-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-017",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S161",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 1050,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S162",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 1050,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S163",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 1050,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S164",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 1050,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S165",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 1050,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "S166",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 1050,
+          "category": "Food",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Food-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-018",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S171",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 836,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S172",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 836,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S173",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 836,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S174",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 836,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S175",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 836,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "S176",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 836,
+          "category": "Transport",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Transport-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-019",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S181",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 863,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S182",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 863,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S183",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 863,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S184",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 863,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S185",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 863,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "S186",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 863,
+          "category": "Entertainment",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Entertainment-2026-04"
+      ]
+    },
+    {
+      "id": "SPIKE-020",
+      "rule": "category_spike_positive",
+      "transactions": [
+        {
+          "id": "S191",
+          "date": "2026-01-05",
+          "description": "January purchase",
+          "amount": 861,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S192",
+          "date": "2026-02-05",
+          "description": "February purchase",
+          "amount": 861,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S193",
+          "date": "2026-03-05",
+          "description": "March purchase",
+          "amount": 861,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S194",
+          "date": "2026-04-05",
+          "description": "April purchase 1",
+          "amount": 861,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S195",
+          "date": "2026-04-10",
+          "description": "April purchase 2",
+          "amount": 861,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "S196",
+          "date": "2026-04-15",
+          "description": "April purchase 3",
+          "amount": 861,
+          "category": "Bills",
+          "type": "expense"
+        }
+      ],
+      "expected_anomaly_ids": [
+        "spike-Bills-2026-04"
+      ]
+    },
+    {
+      "id": "NORMAL-001",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N001",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 975,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N002",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 906,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N003",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 975,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N004",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 795,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N005",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 57932,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-002",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N011",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 861,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N012",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 988,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N013",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 926,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N014",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 801,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N015",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 50547,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-003",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N021",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 845,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N022",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 715,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N023",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 709,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N024",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 791,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N025",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 24837,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-004",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N031",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 860,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N032",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 758,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N033",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 828,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N034",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 963,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N035",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 44006,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-005",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N041",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 838,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N042",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 911,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N043",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 914,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N044",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 1093,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N045",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 24536,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-006",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N051",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 821,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N052",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 825,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N053",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 883,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N054",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 909,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N055",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 49557,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-007",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N061",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 946,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N062",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 730,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N063",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 725,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N064",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 1090,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N065",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 55850,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-008",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N071",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 758,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N072",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 1000,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N073",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 786,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N074",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 1094,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N075",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 66587,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-009",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N081",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 813,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N082",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 945,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N083",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 841,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N084",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 999,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N085",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 41428,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-010",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N091",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 754,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N092",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 702,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N093",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 917,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N094",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 1040,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N095",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 79999,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-011",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N101",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 822,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N102",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 827,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N103",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 797,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N104",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 725,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N105",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 40797,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-012",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N111",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 988,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N112",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 724,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N113",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 719,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N114",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 712,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N115",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 20433,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-013",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N121",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 995,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N122",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 946,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N123",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 952,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N124",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 980,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N125",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 26851,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-014",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N131",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 719,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N132",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 716,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N133",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 852,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N134",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 799,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N135",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 38057,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-015",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N141",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 882,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N142",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 994,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N143",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 889,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N144",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 868,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N145",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 73576,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-016",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N151",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 748,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N152",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 718,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N153",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 799,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N154",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 938,
+          "category": "Shopping",
+          "type": "expense"
+        },
+        {
+          "id": "N155",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 45010,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-017",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N161",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 781,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N162",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 804,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N163",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 971,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N164",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 1005,
+          "category": "Food",
+          "type": "expense"
+        },
+        {
+          "id": "N165",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 41139,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-018",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N171",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 912,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N172",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 987,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N173",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 899,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N174",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 1032,
+          "category": "Transport",
+          "type": "expense"
+        },
+        {
+          "id": "N175",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 47592,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-019",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N181",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 940,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N182",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 951,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N183",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 912,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N184",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 1080,
+          "category": "Entertainment",
+          "type": "expense"
+        },
+        {
+          "id": "N185",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 75452,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "NORMAL-020",
+      "rule": "normal_financial_activity",
+      "transactions": [
+        {
+          "id": "N191",
+          "date": "2026-01-05",
+          "description": "January regular spending",
+          "amount": 935,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N192",
+          "date": "2026-02-05",
+          "description": "February regular spending",
+          "amount": 863,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N193",
+          "date": "2026-03-05",
+          "description": "March regular spending",
+          "amount": 994,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N194",
+          "date": "2026-04-05",
+          "description": "April regular spending",
+          "amount": 1025,
+          "category": "Bills",
+          "type": "expense"
+        },
+        {
+          "id": "N195",
+          "date": "2026-04-08",
+          "description": "Salary",
+          "amount": 20510,
+          "category": "Salary",
+          "type": "income"
+        }
+      ],
+      "expected_anomaly_ids": []
+    }
+  ]
+}

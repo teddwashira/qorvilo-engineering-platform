@@ -1,0 +1,26 @@
+[
+  {
+    "anomalyId": "large-001",
+    "assessment": "expected"
+  },
+  {
+    "anomalyId": "spike-001",
+    "assessment": "suspicious"
+  },
+  {
+    "anomalyId": "duplicate-001",
+    "assessment": "suspicious"
+  },
+  {
+    "anomalyId": "large-002",
+    "assessment": "expected"
+  },
+  {
+    "anomalyId": "spike-002",
+    "assessment": "expected"
+  },
+  {
+    "anomalyId": "large-003",
+    "assessment": "suspicious"
+  }
+]

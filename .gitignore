@@ -23,3 +23,5 @@ Thumbs.db
 
 # VS Code
 .vscode/
+# Local user feedback - do not publish
+experiments/anomaly-detection/v1.0/feedback-v1.0.json

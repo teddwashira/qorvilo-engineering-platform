@@ -1,0 +1,71 @@
+
+{
+  "project": "QORVILO",
+  "experiment": "Anomaly Detection v1.0 - Adversarial Challenge Dataset",
+  "dataset_type": "synthetic",
+  "currency": "KES",
+  "scenario_count": 6,
+  "scenarios": [
+    {
+      "id": "CH001",
+      "rule": "legitimate_seasonal_spending",
+      "transactions": [
+        {"id": "CH1", "date": "2026-01-05", "description": "School supplies", "amount": 1000, "category": "Education", "type": "expense"},
+        {"id": "CH2", "date": "2026-02-05", "description": "School supplies", "amount": 1000, "category": "Education", "type": "expense"},
+        {"id": "CH3", "date": "2026-03-05", "description": "School supplies", "amount": 1000, "category": "Education", "type": "expense"},
+        {"id": "CH4", "date": "2026-04-05", "description": "School fees", "amount": 8000, "category": "Education", "type": "expense"}
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "CH002",
+      "rule": "legitimate_repeated_purchases",
+      "transactions": [
+        {"id": "CH5", "date": "2026-05-01", "description": "Supermarket purchase", "amount": 2500, "category": "Food", "type": "expense"},
+        {"id": "CH6", "date": "2026-05-02", "description": "Supermarket purchase", "amount": 2500, "category": "Food", "type": "expense"}
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "CH003",
+      "rule": "legitimate_change_in_spending_habits",
+      "transactions": [
+        {"id": "CH7", "date": "2026-01-05", "description": "Transport", "amount": 1000, "category": "Transport", "type": "expense"},
+        {"id": "CH8", "date": "2026-01-15", "description": "Transport", "amount": 1000, "category": "Transport", "type": "expense"},
+        {"id": "CH9", "date": "2026-01-25", "description": "Transport", "amount": 1000, "category": "Transport", "type": "expense"},
+        {"id": "CH10", "date": "2026-02-05", "description": "Transport", "amount": 3500, "category": "Transport", "type": "expense"}
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "CH004",
+      "rule": "insufficient_historical_data",
+      "transactions": [
+        {"id": "CH11", "date": "2026-06-01", "description": "Shopping", "amount": 1000, "category": "Shopping", "type": "expense"},
+        {"id": "CH12", "date": "2026-06-10", "description": "Shopping", "amount": 1000, "category": "Shopping", "type": "expense"},
+        {"id": "CH13", "date": "2026-07-01", "description": "Shopping", "amount": 10000, "category": "Shopping", "type": "expense"}
+      ],
+      "expected_anomaly_ids": []
+    },
+    {
+      "id": "CH005",
+      "rule": "category_spending_spike",
+      "transactions": [
+        {"id": "CH14", "date": "2026-01-05", "description": "Bills", "amount": 1000, "category": "Bills", "type": "expense"},
+        {"id": "CH15", "date": "2026-02-05", "description": "Bills", "amount": 1000, "category": "Bills", "type": "expense"},
+        {"id": "CH16", "date": "2026-03-05", "description": "Bills", "amount": 1000, "category": "Bills", "type": "expense"},
+        {"id": "CH17", "date": "2026-04-05", "description": "Electricity bill", "amount": 4000, "category": "Bills", "type": "expense"}
+      ],
+      "expected_anomaly_ids":[]
+    },
+    {
+      "id": "CH006",
+      "rule": "same_amount_different_merchants",
+      "transactions": [
+        {"id": "CH18", "date": "2026-05-01", "description": "Fuel station A", "amount": 3000, "category": "Transport", "type": "expense"},
+        {"id": "CH19", "date": "2026-05-01", "description": "Fuel station B", "amount": 3000, "category": "Transport", "type": "expense"}
+      ],
+      "expected_anomaly_ids": []
+    }
+  ]
+}
