@@ -72,7 +72,7 @@ const repetitionsBySize = {
   10000: 1
 };
 
-console.log("\nQORVILO v0.8");
+console.log("\nQORVILO v0.9");
 console.log("ANOMALY DETECTION PERFORMANCE BENCHMARK\n");
 
 console.log(

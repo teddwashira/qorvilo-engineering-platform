@@ -1552,81 +1552,287 @@ function analyzeFinancialAnomalies(transactionData = transactions) {
       Number(item.amount) > 0 &&
       ["income", "expense"].includes(item.type)
     )
-    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    .sort((a, b) =>
+      String(a.date).localeCompare(String(b.date))
+    );
 
   const expenses = validTransactions.filter(
     item => item.type === "expense"
   );
 
-  // Rule 1: Unusually large expenses
-  expenses.forEach(item => {
-    const previousExpenses = expenses.filter(previous =>
-      previous.id !== item.id &&
-      previous.category === item.category &&
-      previous.date < item.date
-    );
+  // Efficient median tracking using two heaps.
+  // Lower half: max heap. Upper half: min heap.
 
-    if (previousExpenses.length < 3) return;
+  function pushMaxHeap(heap, value) {
+    heap.push(value);
+    let index = heap.length - 1;
 
-    const amounts = previousExpenses
-      .map(entry => Number(entry.amount))
-      .sort((a, b) => a - b);
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2);
 
-    const middle = Math.floor(amounts.length / 2);
+      if (heap[parent] >= heap[index]) break;
 
-    const median = amounts.length % 2 === 0
-      ? (amounts[middle - 1] + amounts[middle]) / 2
-      : amounts[middle];
+      [heap[parent], heap[index]] =
+        [heap[index], heap[parent]];
+
+      index = parent;
+    }
+  }
+
+  function pushMinHeap(heap, value) {
+    heap.push(value);
+    let index = heap.length - 1;
+
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2);
+
+      if (heap[parent] <= heap[index]) break;
+
+      [heap[parent], heap[index]] =
+        [heap[index], heap[parent]];
+
+      index = parent;
+    }
+  }
+
+  function popMaxHeap(heap) {
+    const root = heap[0];
+    const last = heap.pop();
+
+    if (heap.length > 0) {
+      heap[0] = last;
+      let index = 0;
+
+      while (true) {
+        const left = index * 2 + 1;
+        const right = index * 2 + 2;
+        let largest = index;
+
+        if (
+          left < heap.length &&
+          heap[left] > heap[largest]
+        ) {
+          largest = left;
+        }
+
+        if (
+          right < heap.length &&
+          heap[right] > heap[largest]
+        ) {
+          largest = right;
+        }
+
+        if (largest === index) break;
+
+        [heap[index], heap[largest]] =
+          [heap[largest], heap[index]];
+
+        index = largest;
+      }
+    }
+
+    return root;
+  }
+
+  function popMinHeap(heap) {
+    const root = heap[0];
+    const last = heap.pop();
+
+    if (heap.length > 0) {
+      heap[0] = last;
+      let index = 0;
+
+      while (true) {
+        const left = index * 2 + 1;
+        const right = index * 2 + 2;
+        let smallest = index;
+
+        if (
+          left < heap.length &&
+          heap[left] < heap[smallest]
+        ) {
+          smallest = left;
+        }
+
+        if (
+          right < heap.length &&
+          heap[right] < heap[smallest]
+        ) {
+          smallest = right;
+        }
+
+        if (smallest === index) break;
+
+        [heap[index], heap[smallest]] =
+          [heap[smallest], heap[index]];
+
+        index = smallest;
+      }
+    }
+
+    return root;
+  }
+
+  function addToMedianState(state, value) {
+    if (
+      state.lower.length === 0 ||
+      value <= state.lower[0]
+    ) {
+      pushMaxHeap(state.lower, value);
+    } else {
+      pushMinHeap(state.upper, value);
+    }
 
     if (
-      Number(item.amount) >= Math.max(median * 2.5, median + 1000)
+      state.lower.length > state.upper.length + 1
     ) {
-      anomalies.push({
-        id: `large-${item.id}`,
-        transactionId: item.id,
-        type: "Large Expense",
-        severity: "high",
-        title: "Unusually large expense",
-        description:
-          `${item.description} is significantly higher than previous ` +
-          `${item.category} expenses. The historical median is ` +
-          `${formatMoney(median)}.`,
-        amount: Number(item.amount),
+      pushMinHeap(
+        state.upper,
+        popMaxHeap(state.lower)
+      );
+    } else if (
+      state.upper.length > state.lower.length
+    ) {
+      pushMaxHeap(
+        state.lower,
+        popMinHeap(state.upper)
+      );
+    }
+  }
 
-riskScore: Math.min(
-  100,
-  Math.max(
-    30,
-    Math.round((Number(item.amount) / median) * 28)
-  )
-),
+  function getMedian(state) {
+    if (
+      state.lower.length === state.upper.length
+    ) {
+      return (
+        state.lower[0] + state.upper[0]
+      ) / 2;
+    }
 
-date: item.date
+    return state.lower[0];
+  }
+
+  // RULE 1: Unusually large expenses.
+  // Group expenses by category and date once.
+
+  const categoryExpenseGroups = new Map();
+
+  expenses.forEach(item => {
+    if (!categoryExpenseGroups.has(item.category)) {
+      categoryExpenseGroups.set(item.category, []);
+    }
+
+    categoryExpenseGroups.get(item.category).push(item);
+  });
+
+  const largeAnomalies = new Map();
+
+  categoryExpenseGroups.forEach(categoryExpenses => {
+    const dateGroups = new Map();
+
+    categoryExpenses.forEach(item => {
+      if (!dateGroups.has(item.date)) {
+        dateGroups.set(item.date, []);
+      }
+
+      dateGroups.get(item.date).push(item);
+    });
+
+    const history = {
+      lower: [],
+      upper: []
+    };
+
+    const dates = [...dateGroups.keys()].sort();
+
+    dates.forEach(date => {
+      const currentDayExpenses = dateGroups.get(date);
+
+      // All transactions on the same date use
+      // history from strictly earlier dates.
+
+      currentDayExpenses.forEach(item => {
+        const historyCount =
+          history.lower.length + history.upper.length;
+
+        if (historyCount < 3) return;
+
+        const median = getMedian(history);
+        const amount = Number(item.amount);
+
+        if (
+          amount >= Math.max(
+            median * 2.5,
+            median + 1000
+          )
+        ) {
+          largeAnomalies.set(item, {
+            id: `large-${item.id}`,
+            transactionId: item.id,
+            type: "Large Expense",
+            severity: "high",
+            title: "Unusually large expense",
+            description:
+              `${item.description} is significantly higher than previous ` +
+              `${item.category} expenses. The historical median is ` +
+              `${formatMoney(median)}.`,
+            amount,
+            riskScore: Math.min(
+              100,
+              Math.max(
+                30,
+                Math.round((amount / median) * 28)
+              )
+            ),
+            date: item.date
+          });
+        }
       });
+
+      // Add the current date's expenses only after
+      // checking all transactions on that date.
+
+      currentDayExpenses.forEach(item => {
+        addToMedianState(
+          history,
+          Number(item.amount)
+        );
+      });
+    });
+  });
+
+  // Preserve the original chronological alert order.
+
+  expenses.forEach(item => {
+    if (largeAnomalies.has(item)) {
+      anomalies.push(largeAnomalies.get(item));
     }
   });
 
-  // Rule 2: Category spending spikes
-  const monthlyTotals = {};
+  // RULE 2: Category spending spikes.
+  // Build category/month totals in a single pass.
+
+  const monthlyTotals = new Map();
 
   expenses.forEach(item => {
-    const month = String(item.date).slice(0, 7);
     const category = item.category || "Other";
-    const key = `${category}|${month}`;
+    const month = String(item.date).slice(0, 7);
 
-    monthlyTotals[key] = (monthlyTotals[key] || 0) + Number(item.amount);
+    if (!monthlyTotals.has(category)) {
+      monthlyTotals.set(category, new Map());
+    }
+
+    const categoryMonths = monthlyTotals.get(category);
+
+    categoryMonths.set(
+      month,
+      (categoryMonths.get(month) || 0) +
+        Number(item.amount)
+    );
   });
 
-  const categories = [...new Set(
-    expenses.map(item => item.category || "Other")
-  )];
-
-  categories.forEach(category => {
-    const months = [...new Set(
-      expenses
-        .filter(item => (item.category || "Other") === category)
-        .map(item => String(item.date).slice(0, 7))
-    )].sort();
+  monthlyTotals.forEach((categoryMonths, category) => {
+    const months = [...categoryMonths.keys()].sort();
 
     months.forEach((month, index) => {
       if (index < 2) return;
@@ -1636,15 +1842,19 @@ date: item.date
         index
       );
 
-      const average = previousMonths.reduce((sum, previousMonth) => {
-        return sum +
-          (monthlyTotals[`${category}|${previousMonth}`] || 0);
-      }, 0) / previousMonths.length;
+      const average = previousMonths.reduce(
+        (sum, previousMonth) =>
+          sum + categoryMonths.get(previousMonth),
+        0
+      ) / previousMonths.length;
 
-      const currentTotal = monthlyTotals[`${category}|${month}`];
+      const currentTotal = categoryMonths.get(month);
 
-      if (average > 0 && currentTotal >= average * 1.8 &&
-          currentTotal - average >= 1000) {
+      if (
+        average > 0 &&
+        currentTotal >= average * 1.8 &&
+        currentTotal - average >= 1000
+      ) {
         anomalies.push({
           id: `spike-${category}-${month}`,
           type: "Category Spending Spike",
@@ -1654,22 +1864,22 @@ date: item.date
             `${category} spending in ${month} is significantly above ` +
             `the average of the preceding recorded months.`,
           amount: currentTotal,
-
-riskScore: Math.min(
-  100,
-  Math.max(
-    30,
-    Math.round((currentTotal / average) * 35)
-  )
-),
-
-date: month
+          riskScore: Math.min(
+            100,
+            Math.max(
+              30,
+              Math.round((currentTotal / average) * 35)
+            )
+          ),
+          date: month
         });
       }
     });
   });
 
-  // Rule 3: Possible duplicate transactions
+  // RULE 3: Possible duplicate transactions.
+  // Preserve constant-time Map lookups.
+
   const seenTransactions = new Map();
 
   expenses.forEach(item => {
@@ -1700,6 +1910,8 @@ date: month
 
   return anomalies;
 }
+
+
 // Register existing anomalies without sending notifications
 knownAnomalyIds = new Set(
   analyzeFinancialAnomalies().map(item => item.id)
