@@ -208,6 +208,7 @@ const validTransactions = transactions
     date: String(item.date || "")
   }));
 
+
 // Calculate totals using validated transactions
 const income = validTransactions
   .filter(item => item.type === "income")
@@ -217,12 +218,21 @@ const expenses = validTransactions
   .filter(item => item.type === "expense")
   .reduce((total, item) => total + item.amount, 0);
 
+// Calculate savings rate deterministically
+const savings = income - expenses;
+
+const savingsRate = income > 0
+  ? (savings / income) * 100
+  : 0;
+
 // Prepare financial information for QORVILO AI
 const financialData = {
   currency: "KES",
   totalIncome: income,
   totalExpenses: expenses,
   netBalance: income - expenses,
+  savings: savings,
+savingsRate: Number(savingsRate.toFixed(2)),
   transactionCount: validTransactions.length,
   excludedTransactionCount: transactions.length - validTransactions.length,
   transactions: validTransactions

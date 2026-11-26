@@ -106,6 +106,10 @@ const safeFinancialData = {
   totalIncome: safeIncome,
   totalExpenses: safeExpenses,
   netBalance: safeIncome - safeExpenses,
+  savings: safeIncome - safeExpenses,
+  savingsRate: safeIncome > 0
+    ? Number((((safeIncome - safeExpenses) / safeIncome) * 100).toFixed(2))
+    : 0,
   transactionCount: safeTransactions.length,
   excludedTransactionCount: rawTransactions.length - safeTransactions.length,
   transactions: safeTransactions
